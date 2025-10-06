@@ -9,3 +9,10 @@ add_action('admin_enqueue_scripts','enque');
 function enque(){
      wp_enqueue_style('pfm-admin-style', plugin_dir_url(__FILE__) . 'assets/admin-style.css');
 }
+
+
+// Register activation hook use always in main file
+register_activation_hook(__FILE__, 'reports_create_table');
+function reports_create_table(){
+    
+}
