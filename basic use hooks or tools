@@ -2,3 +2,10 @@
 add_action('admin_enqueue_scripts', function () {
      wp_enqueue_style('pfm-admin-style', plugin_dir_url(__FILE__) . 'assets/admin-style.css');
 });
+
+
+//another way
+add_action('admin_enqueue_scripts','enque');
+function enque(){
+     wp_enqueue_style('pfm-admin-style', plugin_dir_url(__FILE__) . 'assets/admin-style.css');
+}
