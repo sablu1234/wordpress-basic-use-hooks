@@ -1,0 +1,4 @@
+//enque style
+add_action('admin_enqueue_scripts', function () {
+     wp_enqueue_style('pfm-admin-style', plugin_dir_url(__FILE__) . 'assets/admin-style.css');
+});
