@@ -1,0 +1,5 @@
+function admin_scriptss(){
+    wp_enqueue_style( 'msr-style', plugin_dir_url(__FILE__).'admin.css', '', '1.0.0', 'all' );
+}
+
+add_action( 'admin_enqueue_scripts', 'admin_scriptss' );
