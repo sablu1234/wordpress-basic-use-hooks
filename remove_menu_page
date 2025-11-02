@@ -14,3 +14,5 @@ function wpdocs_remove_menus(){
   
 }
 add_action( 'admin_menu', 'wpdocs_remove_menus' );
+
+
