@@ -1,0 +1,121 @@
+
+// admin page
+/**
+ * Register a custom menu page.
+ */
+function wpdocs_register_my_custom_menu_page(){
+	add_menu_page( 
+		__( 'Custom Menu', 'textdomain' ),//browser menu title
+		'custom menu',//menu title
+		'manage_options',//capability
+		'custompage',//parent slug
+		'my_custom_menu_page', //FUnction
+		plugins_url( 'myplugin/images/icon.png' ),
+		6
+	); 
+
+    add_submenu_page(
+    'custompage', //parent slug
+    'Existing WP', // browser title
+    'Existing WP ', //admin title
+    'read', //capability
+    'sub_menu', //slug
+    'wpdocs_orders_function' //function
+);
+}
+add_action( 'admin_menu', 'wpdocs_register_my_custom_menu_page' );
+
+
+// admin page this
+function my_custom_menu_page() {
+    ?>
+    <div class="wrap">
+      <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+      <form action="options.php" method="post">
+        <?php
+        // output security fields for the registered setting "wporg_options"
+        settings_fields( 'custompage' );
+        // output setting sections and their fields
+        // (sections are registered for "wporg", each field is registered to a specific section)
+        do_settings_sections( 'custompage' );
+        // output save settings button
+        submit_button( __( 'Save Settings', 'msr-plugin' ) );
+        ?>
+      </form>
+    </div>
+    <?php
+}
+
+
+
+
+
+function msr_settings_init() {
+	// register a new setting for "reading" page
+	register_setting('custompage', 'msr_setting_field_txt');
+	register_setting('custompage', 'msr_setting_field_checkbox');
+
+	// register a new section in the "reading" page
+	add_settings_section(
+		'msr_settings_section_general',
+		'Section', 
+        'msr_settings_section_general_callback',
+		'custompage'
+	);
+	add_settings_section(
+		'msr_settings_section_general',
+		'Section', 
+        'msr_settings_section_general_callback',
+		'custompage'
+	);
+
+	// register a new field in the "wporg_settings_section" section, inside the "reading" page
+	add_settings_field(
+		'msr_settings_field_1',
+		'Text Field', 
+        'msr_txt_settings_field_callback',
+		'custompage',
+		'msr_settings_section_general'
+	);
+	add_settings_field(
+		'msr_settings_field_2',
+		'Checkbox Field', 
+        'msr_checkbox_settings_field_callback',
+		'custompage',
+		'msr_settings_section_general'
+	);
+}
+
+/**
+ * register wporg_settings_init to the admin_init action hook
+ */
+add_action('admin_init', 'msr_settings_init');
+
+/**
+ * callback functions
+ */
+
+// section content cb
+function msr_settings_section_general_callback() {
+	echo '<p>Manage main plugin settings.</p>';
+}
+
+// field TEXT cb
+function msr_txt_settings_field_callback() {
+	// get the value of the setting we've registered with register_setting()
+	$setting = get_option('msr_setting_field_txt');
+	// output the field
+	?>
+	<input type="text" name="msr_setting_field_txt" value="<?php echo isset( $setting ) ? esc_attr( $setting ) : ''; ?>">
+    <?php
+}
+// field checkbox cb
+function msr_checkbox_settings_field_callback() {
+	// get the value of the setting we've registered with register_setting()
+	$setting = get_option('msr_setting_field_checkbox');
+    // print_r($setting)
+	// output the field
+	?>
+	<input type="checkbox" name="msr_setting_field_checkbox" <?php echo ($setting == 'on' ? 'checked' : '')?>>
+    <?php
+}
