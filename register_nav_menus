@@ -1,0 +1,10 @@
+if ( ! function_exists( 'my_nav_menu' ) ) {
+
+	function my_nav_menu(){
+		register_nav_menus( array(
+	    	'primary_menu' => __( 'Primary Menu', 'msr_plugins' ),
+	    	'footer_menu'  => __( 'Footer Menu', 'msr_plugins' ),
+		) );
+	}
+	add_action( 'init', 'my_nav_menu', 0 );
+}
