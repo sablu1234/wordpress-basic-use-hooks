@@ -1,7 +1,10 @@
+/**
+ * Register a custom menu page.
+ */
 function wpdocs_register_my_custom_menu_page(){
 	add_menu_page( 
-		__( 'Custom Menu Title', 'textdomain' ),
-		'custom menu',
+		__( 'Custom Menu', 'textdomain' ),//browser menu title
+		'custom menu',//menu title
 		'manage_options',//capability
 		'custompage',//parent slug
 		'my_custom_menu_page', //FUnction
@@ -11,8 +14,8 @@ function wpdocs_register_my_custom_menu_page(){
 
     add_submenu_page(
     'custompage', //parent slug
-    'Existing WP Docs Orders', // title
-    'Existing WP Docs Orders', 
+    'Existing WP', // browser title
+    'Existing WP ', //admin title
     'read', //capability
     'sub_menu', //slug
     'wpdocs_orders_function' //function
