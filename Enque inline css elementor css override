@@ -1,0 +1,17 @@
+#frist hooks:wp_enqueue_scripts call kore 
+#wp_add_inline_style => atar dara inlince css use kora hoi wp te <style></style> ar vetore css add kore
+#elementor-frontend => elementor ar css k overide korar jonno ata use hoi
+
+
+
+function wpdocs_styles_method() {
+	$custom_csss="
+	 .elementor-menu-cart__footer-buttons .elementor-button-text {
+            background: #e63946;
+            padding: 15px 30px;
+            border-radius: 8px;
+        }
+	";
+        wp_add_inline_style( 'elementor-frontend', $custom_csss);
+}
+add_action( 'wp_enqueue_scripts', 'wpdocs_styles_method' );
