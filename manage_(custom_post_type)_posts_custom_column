@@ -1,8 +1,29 @@
+// Column add in custom post
+function my_add_new_columns($columns) {
+    $columns = [
+        'cb' => '<input type="checkbox">',
+        'title'=> 'Book Title',
+        'auth_email' => 'Author Email',
+        'isbn' => 'ISBN',
+        'author' => 'Book author',
+        'date' => 'Created Date'
+    ];
+    return $columns;
+}
+add_filter( 'manage_book_posts_columns',  'my_add_new_columns' ); 
+
+
+
+
+
 // manage custom column add
 function product_custom_column_values($column_name, $post_id){
     switch ($column_name){
         case 'auth_email':
             echo "test@gmail.com";
+            break;
+        case 'isbn':
+            echo "123456";
             break;
     }
 }
