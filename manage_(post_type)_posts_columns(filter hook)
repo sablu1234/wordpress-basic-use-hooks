@@ -1,0 +1,12 @@
+// Column add in custom post(ata use kora hoi defalt wordpress ar column add korte)
+function my_add_new_columns($columns) {
+    $columns = [
+        'cb' => '<input type="checkbox">',
+        'title'=> 'Book Title',
+        'auth_email' => 'Author Email',
+        'author' => 'Book author',
+        'date' => 'Created Date'
+    ];
+    return $columns;
+}
+add_filter( 'manage_book_posts_columns',  'my_add_new_columns' ); 
