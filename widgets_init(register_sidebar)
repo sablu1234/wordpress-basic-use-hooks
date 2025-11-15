@@ -1,0 +1,16 @@
+add_action( 'widgets_init', 'register_my_widgets' );
+function register_my_widgets(){
+
+	register_sidebar( array(
+		'name'          => sprintf(__('Sidebar %d'), $i ),
+		'id'            => "sidebar-$i",
+		'description'   => 'hasan',
+		'class'         => '',
+		'before_widget' => '<li id="%1$s" class="widget %2$s">',
+		'after_widget'  => "</li>\n",
+		'before_title'  => '<h2 class="widgettitle">',
+		'after_title'   => "</h2>\n",
+		'before_sidebar' => '', // WP 5.6
+		'after_sidebar'  => '', // WP 5.6
+	) );
+}
