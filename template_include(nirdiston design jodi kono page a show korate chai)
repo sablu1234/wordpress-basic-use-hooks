@@ -18,3 +18,11 @@ function portfolio_page_template($template){
 
     return $template;
 }
+
+
+
+//jodi header and footer use korte chai sei page a niser code use kora jete pare
+
+<?php get_header();?>
+<h2>complate inlcued</h2>
+<?php get_footer(); ?>
