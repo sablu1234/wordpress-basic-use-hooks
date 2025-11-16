@@ -1,0 +1,11 @@
+amra jodi wp ar default template use korte chai 
+
+akta page banabo jar age template thakbe ar mail plugin folder ar modhe example(template-contact.php)
+ar ai file ar vetore niser moto liklei wordpress ar page ar add page a gelei template oftion a (Contact Page) ai template pabo 
+
+<?php
+/*
+* Template Name: Contact Page
+*/
+?>
+<h1>Contact template</h1>
