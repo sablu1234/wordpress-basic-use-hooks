@@ -14,3 +14,21 @@ add_action('da_content_call', 'da_add_content_callback');
             do_action('da_content_call');
         }
             
+
+
+
+///////////////////////////////////////////////
+amra jodi parameter dite chai 
+function da_add_content_callback($values){
+    echo "<h2>Custom Action Hook</h2>";
+    // print_r($values);
+    echo "<h1>Hi ".$values['fristname'].' '.$values['lastname']."</h1>";
+};
+
+add_action('da_content_call', 'da_add_content_callback');
+
+👇
+jekhane show hove 
+ <?php if(has_action('da_content_call')) {
+    do_action('da_content_call',['fristname'=>'Amit', 'lastname' => 'kumar']);
+ }           
