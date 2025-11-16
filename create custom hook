@@ -1,0 +1,16 @@
+// frist amader niser moto kore akta funciton hook create korte hobe and fucniton a ja dekhabo ta show korate hobe
+
+function da_add_content_callback(){
+    echo "<h2>Custom Action Hook</h2>";
+}
+
+add_action('da_content_call', 'da_add_content_callback');
+
+
+
+// Akhon je page a or jekhane show korate chai sei page a do action use korte hobe niser moto kore
+
+     <?php if(has_action('da_content_call')) {
+            do_action('da_content_call');
+        }
+            
