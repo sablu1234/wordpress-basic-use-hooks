@@ -1,0 +1,20 @@
+//akhane template_include ai hook use korle ami wp te kono page create korle sai page a mar nijosso code kora desing show korate parbo. condition ar madhome
+
+add_filter( 'template_include', 'portfolio_page_template', 99 );
+
+function portfolio_page_template($template){
+    if(is_page('contact')){
+        $template_file = locate_template(['template-contact.php']);
+        if(!empty($template_file)){
+            return $template_file;
+        }
+    }
+    if(is_page('sample-page')){
+        $template_file = locate_template(['contact-template-page.php']);
+        if(!empty($template_file)){
+            return $template_file;
+        }
+    }
+
+    return $template;
+}
