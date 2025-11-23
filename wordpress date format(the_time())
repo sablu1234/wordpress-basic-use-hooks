@@ -1,0 +1,35 @@
+<?php the_time( 'd M Y' ); ?>
+
+
+//
+Parameter	Display	Example
+Month		
+F	The month’s full name	January – December
+M	The month’s three-letter abbreviation	Jan – Dec
+m	The numeric month with leading zeros	01 – 12
+n	The numeric month without leading zeros	1 – 12
+Day of the month		
+n	The numeric day of the month with leading zeros	1 – 12
+d	The numeric day of the month with leading zeros	01 – 31
+j	The numeric day of the month without leading zeros	1 – 31
+S	The English suffix for the numeric day of the month	st (in 1st), nd (in 2nd)
+Day of the week		
+I	The day of the week’s full name	Monday – Sunday
+D	The day of the week’s three-letter abbreviation	Mon – Sun
+Year		
+Y	The four-digit year	2022
+y	The two-digit year	22
+Time		
+a	Lower case am or pm	am, pm
+A	Uppercase AM or PM	AM, PM
+g	The hour in 12-hour format without leading zeros	1 – 12
+h	The hour in 12-hour format with leading zeros	01 – 12
+G	The hour in 24-hour format without leading zeros	0 – 23
+H	The hour in 24-hour format with leading zeros	0 – 23
+i	Minutes with leading zeros	00 – 59
+s	Seconds with leading zeros	00 – 59
+T	The timezone abbreviation	PST, EDT
+Full date and time		
+c	ISO 8601 format	2022-08-29T18:56:24+00:00
+r	RFC 2822 format	Mon, 29 August 2022 18:56:24+0200
+U	Unix Timestamp (seconds since the Unix epoch, January 1, 1970 00:00:00 GMT)	1661842310
