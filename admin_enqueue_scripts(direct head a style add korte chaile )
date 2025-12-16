@@ -1,0 +1,10 @@
+#ata just function.php te dile ata wp backend a head a ai css hobe
+
+add_action('admin_enqueue_scripts', function () {
+    wp_add_inline_style('wp-admin', '
+        span.update-plugins.count-1 {
+            display: none !important;
+        }
+    ');
+});
+
