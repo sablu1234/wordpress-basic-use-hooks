@@ -1,0 +1,11 @@
+#ata diye head a direct css use korte parbo
+
+add_action('admin_head', function () {
+    echo '<style>
+        span.update-plugins.count-1 { 
+            display: none !important; 
+        }
+    </style>';
+});
+
+
