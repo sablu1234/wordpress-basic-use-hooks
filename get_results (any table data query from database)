@@ -1,0 +1,37 @@
+# jekono table theke data ber korte parbo ata diye wordpress a reasources ase ai video te(https://www.youtube.com/watch?v=IM6zohH4B3E&t=1004s)
+
+<?php
+
+require_once ('wp-load.php');
+$get = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."posts where post_type='post' AND post_status='publish' " );
+echo "<pre>"; print_r($get); echo "</pre>";
+?>
+
+
+====================================================================
+#jodi duita post aksathe kore data tabel banaye data dekta chai 
+<?php
+
+require_once ('wp-load.php');
+
+$get = $wpdb->get_results( "SELECT 
+        posts.*,meta.meta_value as featured
+        FROM 
+            ".$wpdb->prefix."posts as posts
+        LEFT OUTER JOIN
+        ".$wpdb->prefix."postmeta as meta
+        ON
+         posts.ID = meta.post_id
+         AND
+            meta.meta_key = 'featured'
+        WHERE 
+            posts.post_type='post' 
+            AND 
+            posts.post_status='publish' 
+            AND
+            meta.meta_value = 'yes'
+        " );
+
+echo "<pre>"; print_r($get); echo "</pre>";
+
+?> 
