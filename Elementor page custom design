@@ -4,3 +4,96 @@
 
 #ajax diye data from theke pathate hole amake dekte hobe frist kon url a hit korbo ar ai url ta paya jai ai code
 var link = "<?php echo admin_url(); ?>"
+
+# page-contact-us.php ai page a ami ai form banaisi
+ <form id="frmContactUs">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name" required></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="email" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" name="submit"></td>
+            </tr>
+
+        </table>
+    </form>
+
+</div>
+<div id="result_msg">
+
+</div>
+
+<style>
+    #frmContactUs table td {
+        border: 0px;
+    }
+
+    #result_msg span.false {
+        color: red;
+    }
+
+    #result_msg span.true {
+        color: green;
+    }
+</style>
+
+<script>
+    jQuery('#frmContactUs').submit(function() {
+        event.preventDefault();
+        jQuery("#result_msg").html('');
+        var link = "<?php echo admin_url('admin-ajax.php'); ?>";
+        var form = jQuery('#frmContactUs').serialize();
+        var fromData = new FormData;
+        fromData.append('action', 'contact_us');
+        fromData.append('contact_us', form);
+        jQuery.ajax({
+            url: link,
+            data: fromData,
+            processData: false,
+            contentType: false,
+            type: 'post',
+            success: function(result) {
+                if (result.success == true) {
+                    jQuery('#frmContactUs')[0].reset();
+                }
+                jQuery("#result_msg").html('<span class="' + result.success + '">' + result.data + '<span/>')
+                // result.success;
+                // result.data;
+            }
+        });
+    });
+</script>
+
+
+#function.php te ai code use korete hobe
+
+function my_enqueue_scripts() {
+	wp_enqueue_script('jquery'); // WordPress bundled jQuery
+}
+add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
+
+
+add_action('wp_ajax_contact_us', 'ajax_contact_us');
+function ajax_contact_us() {
+	$arr = [];
+	wp_parse_str($_POST['contact_us'], $arr);
+	global $wpdb;
+	global $table_prefix;
+	$table = $table_prefix . 'contact_us';
+	$result = $wpdb->insert($table, [
+		"name" => $arr["name"],
+		"email" => $arr["email"],
+	]);
+
+	if ($result > 0) {
+		wp_send_json_success("Data insert");
+	} else {
+		wp_send_json_error("Please try again");
+	}
+}
