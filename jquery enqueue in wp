@@ -1,0 +1,5 @@
+#jquery enqueue korte ai code funtion.php te paste koro
+function my_enqueue_scripts() {
+    wp_enqueue_script('jquery'); // WordPress bundled jQuery
+}
+add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
