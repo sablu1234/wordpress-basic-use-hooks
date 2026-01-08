@@ -1,0 +1,6 @@
+#amra jodi elemntor page custom vabe design korte chai tobe je name a page ar slug(contact-us) hobe tar age "page-" ata hobe (page-contact-us.php) name file create korle ai page a sob custom code gulo elementor ar page a show korbe ami astra diye check diyesi
+(source=> https://www.youtube.com/watch?v=KnW2MivfpNI)
+# page name => page-contact-us.php
+
+#ajax diye data from theke pathate hole amake dekte hobe frist kon url a hit korbo ar ai url ta paya jai ai code
+var link = "<?php echo admin_url(); ?>"
