@@ -27,3 +27,30 @@ function admin_scriptss(){
 }
 add_action( 'admin_enqueue_scripts', 'admin_scriptss' );
 
+
+#amara joidi child theme a css use korte chai 
+#function.php te ata use koro
+//wp_enqueue_style( $handle, $src, $deps, $ver, $media );
+function load_main_css() {
+    wp_enqueue_style(
+        'main-css',
+        get_stylesheet_directory_uri() . '/main.css',
+        [],
+        '1.0'
+    );
+}
+add_action('wp_enqueue_scripts', 'load_main_css');
+
+
+#ar je template banassi sekhane 
+<?php
+/*
+* Template Name: Contact Page
+*/
+?>
+<?php get_header(); ?>
+
+#ar nise code thakbe design ar but age pore thakbe 
+<?php get_header(); ?>
+(main desing ai khane thakbe)
+<?php get_footer(); ?>
