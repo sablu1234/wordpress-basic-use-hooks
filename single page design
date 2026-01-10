@@ -1,0 +1,10 @@
+#amara jodi single page custom vabe design korte cha tobe "single.php" ata creat kore ar modhe design korte hobe
+#amara jodi elemntor ar width use korte chai child theme hole ami astra ar child theme use koresi . ar por customize a giye "post types" agiye single post a giye "Container Layout" full width korte hobe
+<?php
+get_header();
+if (have_posts()) :
+    while (have_posts()) : the_post();
+        the_content(); // Elementor content handle করবে
+    endwhile;
+endif;
+get_footer();
