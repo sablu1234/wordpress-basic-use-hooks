@@ -1,0 +1,87 @@
+#amara jodi api diye post create korte chai (source youtube=> http://youtube.com/watch?v=oDva8iR_rd4&list=PLQWFhX-gwJbnT2NG7ZxX2JvGPoZH_2Wnm&index=3)
+#amara akta template create koresi 
+<?php
+/*
+* Template Name: Api Test Page
+*/
+?>
+<?php get_header(); ?>
+
+<style>
+    .admin-quick-add {
+        background-color: #DDD;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .admin-quick-add input,
+    .admin-quick-add textarea {
+        width: 100%;
+        border: none;
+        padding: 10px;
+        margin: 0 0 10px 0;
+        box-sizing: border-box;
+    }
+</style>
+
+
+<div class="admin-quick-add">
+    <h3>Quick Add Post</h3>
+    <input type="text" name="title" placeholder="Title">
+    <textarea name="content" placeholder="Content"></textarea>
+    <button id="quick-add-button">Create Post</button>
+    <div id="response"></div>
+</div>
+
+
+<?php get_footer(); ?>
+
+
+#amara jekkhane js file rakbo seta link korbo and style.css file link korbo jehutu child theme use korbo tai ata use korbo (get_stylesheet_directory_uri(), main theme hole atai use korbo "get_template_directory_uri() script ar jonno")
+//wp_enqueue_style( $handle, $src, $deps, $ver, $media );
+function enqueue_parents_style() {
+    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
+    wp_enqueue_script('api-custom-js', get_stylesheet_directory_uri() . '/js/custom-api.js', NULL, '1.0.0', true);
+    wp_localize_script('api-custom-js', 'additionalData', array(
+        'nonce' => wp_create_nonce('wp_rest')
+    ));
+}
+add_action('wp_enqueue_scripts', 'enqueue_parents_style');
+
+
+#custom-api.js file a ai code dite hobe
+var quickAddBtn = document.getElementById('quick-add-button');
+
+if (quickAddBtn) {
+    quickAddBtn.addEventListener('click', function () {
+        var title = document.querySelector('.admin-quick-add [name="title"]').value;
+        var content = document.querySelector('.admin-quick-add [name="content"]').value;
+
+        var ourPostData = {
+            "title": title,
+            "content": content,
+            "status": "publish"
+        }
+
+
+        var createPost = new XMLHttpRequest();
+
+        var responseDiv = document.getElementById('response');
+
+        createPost.open('POST', 'http://json-practice.local/wp-json/wp/v2/posts/');
+        createPost.setRequestHeader('X-WP-Nonce', additionalData.nonce);
+        createPost.setRequestHeader('Content-Type', 'application/json; charset:UTF-8');
+        createPost.send(JSON.stringify(ourPostData));
+        createPost.onreadystatechange = function () {
+            if (createPost.readyState == 4) {
+                if (createPost.status == 201) {
+                    // Sucess Message
+                    responseDiv.innerHTML = '<h4 style="color:green">Submitted Successfully</h4>';
+                } else {
+                    // Error Message
+                    responseDiv.innerHTML = '<h4 style="color:red">Error - Try again.</h4>';
+                }
+            }
+        }
+    });
+}
