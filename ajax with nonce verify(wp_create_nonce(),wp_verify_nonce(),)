@@ -1,0 +1,67 @@
+#amar ajax diye short code ar data frontend a show korte niser code use korte pari(source => https://www.youtube.com/watch?v=gebdEB9luPs)
+add_action('wp_ajax_my_ajax_action', 'my_ajax_fucntion');
+add_action('wp_ajax_nopriv_my_ajax_action', 'my_ajax_fucntion');
+
+function my_ajax_fucntion() {
+
+
+    if (wp_verify_nonce($_POST['nonce_get'], 'my_ajax_action')) {
+
+        $q = new WP_Query(array(
+            'posts_per_page' => 1,
+            'p' => $_POST['page_id_get'],
+            'post_type'      => 'page',
+        ));
+
+        $html = '<div>';
+        while ($q->have_posts()) : $q->the_post();
+            $html .= '<div>' . get_the_content() . '</div>';
+            $html .= '</div>';
+        endwhile;
+        wp_reset_query();
+    } else {
+
+        $html = '<div class="alert alert-danger">Error!</div>';
+    }
+
+
+    echo $html;
+    die();
+}
+
+// data-id ar value ami ajax ar madhome function a nate pari
+function my_shortcode() {
+    $html = '
+        <button data-nonce="' . wp_create_nonce('my_ajax_action') . '" data-id="2" class="my-ajax-trigger">Load sample page content</button>
+        <div id="info"></div>
+        <script>
+            jQuery(document).ready(function($) {
+                $(".my-ajax-trigger").on("click", function(){
+                    var page_id = $(this).attr("data-id");
+                    var nonce = $(this).attr("data-nonce");
+                    $.ajax({
+                        url:"' . admin_url('admin-ajax.php') . '",
+                        type: "POST",
+                        data: {
+                            action: "my_ajax_action",
+                            page_id_get: page_id,
+                            nonce_get: nonce,
+                        },
+                        beforeSend: function(){
+                            $("#info").empty();
+                            $("#info").append("Loading...");
+                        },
+                        success: function(html){
+                            $("#info").empty();
+                            $("#info").append(html);
+                        },
+                    });
+                });
+            });
+        </script>
+    ';
+
+    return $html;
+}
+
+add_shortcode('ajax_btn', 'my_shortcode');
