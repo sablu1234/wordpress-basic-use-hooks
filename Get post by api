@@ -1,0 +1,60 @@
+#amra jodi api diye post get korte chai template a ai design koresi
+<?php
+/*
+* Template Name: Api Test Page
+*/
+?>
+<?php get_header(); ?>
+
+<div class="width-100">
+    <button id="post-btn">Load posts</button>
+    <div class="post-container"></div>
+</div>
+
+<?php get_footer(); ?>
+
+#js/api-mian.js ai file function.php te connect korte ai code----------------------------------------------------------------
+function enqueue_parents_style() {
+    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
+    wp_enqueue_script('api-main-js', get_stylesheet_directory_uri() . '/js/api-main.js', NULL, '1.0.0', true);
+}
+add_action('wp_enqueue_scripts', 'enqueue_parents_style');
+
+
+
+#api-main.js file a je code likbo------------------------------------------------------------------------- 
+
+var postBtn = document.getElementById("post-btn");
+var postContainer = document.getElementById("post-container");
+
+postBtn.addEventListener("click", function () {
+    var ourRequest = new XMLHttpRequest();
+    ourRequest.open("GET", "http://json-practice.local/wp-json/wp/v2/posts?order=asc");
+    ourRequest.onload = function () {
+        if (ourRequest.status >= 200 && ourRequest.status < 400) {
+            var data = JSON.parse(ourRequest.response);
+            // console.log(data);
+            createHtml(data);
+        } else {
+            console.log("We connect to the server but server return error.");
+        }
+    };
+
+    ourRequest.onerror = function () {
+        console.log('Connection Error!');
+    }
+
+    ourRequest.send();
+});
+
+
+function createHtml(postData) {
+    var postHtml = '';
+    for (var i = 0; i < postData.length; i++) {
+        // console.log(postData[i].title.rendered);
+        postHtml += '<h1>' + postData[i].title.rendered + '</h1>';
+        postHtml += postData[i].content.rendered;
+    }
+
+    postContainer.innerHTML = postHtml;
+}
