@@ -16,52 +16,89 @@
 
 #index.php
 <?php
-// PHP JSON read
-$jsonFile = get_stylesheet_directory() . '/index.json';
+$jsonFile = __DIR__ . '/index.json'; // current folder
+
+// Read existing data
+if(file_exists($jsonFile)){
     $jsonData = file_get_contents($jsonFile);
     $data = json_decode($jsonData, true);
+} else {
+    $data = [];
+}
+
+// Handle form submit
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $name = $_POST['name'] ?? '';
+    $profession = $_POST['profession'] ?? '';
+    $skills = $_POST['skills'] ?? '';
+
+    if($name && $profession && $skills){
+        // Convert comma-separated skills to array
+        $skillsArray = array_map('trim', explode(',', $skills));
+
+        // New person object
+        $newPerson = [
+            "name" => $name,
+            "profession" => $profession,
+            "skills" => $skillsArray
+        ];
+
+        // Append to existing data
+        $data[] = $newPerson;
+
+        // Save back to JSON file
+        file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT));
+
+        $success = "Data added successfully!";
+    } else {
+        $error = "Please fill all fields!";
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Child Theme JSON Output</title>
+    <title>JSON Form Example</title>
     <style>
         body { font-family: Arial; padding: 20px; }
+        input, textarea { width: 300px; margin-bottom: 10px; }
         .box { border: 1px solid #ccc; padding: 15px; margin: 15px 0; }
-        .person { margin-bottom: 15px; }
     </style>
-    <?php wp_head(); ?>
 </head>
 <body>
 
-<!-- 🔹 PHP OUTPUT -->
+<h2>Add Person to JSON</h2>
+
+<?php if(!empty($success)) echo "<p style='color:green;'>$success</p>"; ?>
+<?php if(!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+
+<form method="post">
+    <input type="text" name="name" placeholder="Name" required><br>
+    <input type="text" name="profession" placeholder="Profession" required><br>
+    <textarea name="skills" placeholder="Skills (comma separated)" required></textarea><br>
+    <button type="submit">Add to JSON</button>
+</form>
+
+<!-- Show existing data -->
 <div class="box">
-    <h2>PHP Output</h2>
+    <h2>Existing JSON Data</h2>
     <?php foreach($data as $person): ?>
-        <div class="person">
-            <h3><?= $person['name']; ?></h3>
-            <p><?= $person['profession']; ?></p>
-            <ul>
-                <?php foreach($person['skills'] as $skill): ?>
-                    <li><?= $skill; ?></li>
-                <?php endforeach; ?>
-            </ul>
-            <hr>
-        </div>
+        <h3><?= $person['name']; ?></h3>
+        <p><?= $person['profession']; ?></p>
+        <ul>
+            <?php foreach($person['skills'] as $skill): ?>
+                <li><?= $skill; ?></li>
+            <?php endforeach; ?>
+        </ul>
+        <hr>
     <?php endforeach; ?>
 </div>
 
-<!-- 🔹 JS OUTPUT -->
-<div class="box">
-    <h2>JavaScript Output</h2>
-    <div id="js-container"></div>
-</div>
-
-<?php wp_footer(); ?>
 </body>
 </html>
+
 
 
 #js/script.js
