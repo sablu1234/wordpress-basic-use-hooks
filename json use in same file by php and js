@@ -1,0 +1,103 @@
+#ami child theme a 4ta file nisi (#index.json, #index.php, #js/script.js, #functions.php) file gulote niser code gulo disi
+#index.json
+[
+    {
+        "name": "Hasan",
+        "profession": "Web Developer",
+        "skills": ["HTML", "CSS", "JavaScript", "PHP", "WordPress"]
+    },
+    {
+        "name": "Asif",
+        "profession": "Graphic Designer",
+        "skills": ["Photoshop", "Illustrator", "Figma"]
+    }
+]
+
+
+#index.php
+<?php
+// PHP JSON read
+$jsonFile = get_stylesheet_directory() . '/index.json';
+    $jsonData = file_get_contents($jsonFile);
+    $data = json_decode($jsonData, true);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Child Theme JSON Output</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .box { border: 1px solid #ccc; padding: 15px; margin: 15px 0; }
+        .person { margin-bottom: 15px; }
+    </style>
+    <?php wp_head(); ?>
+</head>
+<body>
+
+<!-- 🔹 PHP OUTPUT -->
+<div class="box">
+    <h2>PHP Output</h2>
+    <?php foreach($data as $person): ?>
+        <div class="person">
+            <h3><?= $person['name']; ?></h3>
+            <p><?= $person['profession']; ?></p>
+            <ul>
+                <?php foreach($person['skills'] as $skill): ?>
+                    <li><?= $skill; ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <hr>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+<!-- 🔹 JS OUTPUT -->
+<div class="box">
+    <h2>JavaScript Output</h2>
+    <div id="js-container"></div>
+</div>
+
+<?php wp_footer(); ?>
+</body>
+</html>
+
+
+#js/script.js
+// JS JSON fetch
+fetch('/wp-content/themes/hello-elementor-child/index.json')
+  .then(res => res.json())
+  .then(data => {
+    const jsContainer = document.getElementById('js-container');
+
+    data.forEach(obj => {
+      const div = document.createElement('div');
+      div.classList.add('person');
+
+      div.innerHTML = `
+        <h3>${obj.name}</h3>
+        <p>${obj.profession}</p>
+        <ul>
+          ${obj.skills.map(skill => `<li>${skill}</li>`).join('')}
+        </ul>
+        <hr>
+      `;
+      jsContainer.appendChild(div);
+    });
+  })
+  .catch(err => console.error('JSON fetch error:', err));
+
+
+#functions.php
+// Enqueue JS for JSON fetch
+function child_theme_scripts() {
+    wp_enqueue_script(
+        'child-json-js',
+        get_stylesheet_directory_uri() . '/js/script.js', // JS file
+        array(),
+        '1.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'child_theme_scripts');
