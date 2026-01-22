@@ -1,3 +1,4 @@
+#custom post type register korte jsut niser code funciton.php te paste koro wp te
 function register_custom_post() {
 
     $labels = array(
