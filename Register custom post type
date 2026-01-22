@@ -30,3 +30,40 @@ function register_custom_post() {
 	register_post_type('book', $args);
 }
 add_action('init', 'register_custom_post');
+
+#amra custom post a meta box add korte chai ======================================================
+// Meta box register
+add_action('add_meta_boxes', function() {
+    add_meta_box(
+        'book_field_1',           // ID
+        'Field 1',                // Title
+        'book_field_1_callback',  // Callback
+        'book',                   // Post type
+        'normal',                 // Context
+        'default'                 // Priority
+    );
+});
+
+// Meta box callback
+function book_field_1_callback($post){
+    $value = get_post_meta($post->ID, '_field_1', true);
+    echo '<input type="text" name="field_1" value="'.esc_attr($value).'" style="width:100%;" />';
+}
+
+// Save meta box data
+add_action('save_post', function($post_id){
+    if(isset($_POST['field_1'])){
+        update_post_meta($post_id, '_field_1', sanitize_text_field($_POST['field_1']));
+    }
+});
+
+#amar jodi meta value single page a dekate chai tobe signle-your-custom-post.php(single-book.php) ai file a 
+<?php 
+$field_1 = get_post_meta(get_the_ID(), '_field_1', true);
+if($field_1){
+    echo esc_html($field_1);
+}
+?>
+
+
+
