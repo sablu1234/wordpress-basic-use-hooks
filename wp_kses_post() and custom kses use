@@ -7,6 +7,7 @@ function sbtech_kses($allow_tags = '') {
         'a' => array(
             'href' => true,
             'class' => true,
+            'id' => true,
         ),
     ];
 
