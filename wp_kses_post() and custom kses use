@@ -1,0 +1,14 @@
+#amra jodi kono variable a tag support dite chai tobe ata use korbo "wp_kses_post()" 
+wp_kses_post();
+
+#but amara jodi custom amader nijer kses create korte chai . amra funciton ar name jekono kisu dite pari(ex:sbtech_kses) ar atribute jekono kisu dite pari(ex:$allow_tags). tag arrays variable jekono kisu dite pari(ex: $allowed_html), ar por array modhe je tag support dibo tar name and ki ki atribute supporte hobe seta=true dite hobe
+function sbtech_kses($allow_tags = '') {
+    $allowed_html = [
+        'a' => array(
+            'href' => true,
+            'class' => true,
+        ),
+    ];
+
+    return wp_kses($allow_tags, $allowed_html);
+}
