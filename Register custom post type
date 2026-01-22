@@ -1,4 +1,4 @@
-#custom post type register korte jsut niser code funciton.php te paste koro wp te
+#custom post type register korte jsut niser code funciton.php te paste koro wp te (child theme test astra)
 function register_custom_post() {
 
     $labels = array(
