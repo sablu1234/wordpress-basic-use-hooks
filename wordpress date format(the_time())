@@ -1,4 +1,4 @@
-#ata diye amra spacifik date dhorte parbo loop a jemon only date, "year,date, month", or only date"date", obly "year"
+#ata diye amra spacifik date dhorte parbo loop a jemon only date, "year,date, month", or only date"date", only "year"
 <?php the_time( 'd M Y' ); ?>
 
 
