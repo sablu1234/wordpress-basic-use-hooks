@@ -1,0 +1,9 @@
+#ostad ar video te module 8 ar 1 numer time=> 48 minute plugin => (https://wordpress.org/plugins/mailchimp-for-wp/)
+#ai plugin a 'form' name thakle "<div>" kore dite hobe . 'action' ar dorkar nai. name="EMAIL". class ja thakuk somossa nai. button type hove "type="submit"" . ar por api key lagbe mail chip ar site a giye or plugin a dekho "Get your API key here." ai text ase click korle mail chip account a niye jabe api key kite parbe
+<div class="tp-footer-widget-content-input tp-footer-4-input mb-5">
+  <div class="tp-footer-form" action="index.html">
+    <input type="email" name="EMAIL" placeholder="Your Email">
+    <span class="tp-footer-email tp-footer-4-email"><i class="fal fa-envelope"></i></span>
+    <button type="submit"><span class="tp-footer-4-email-btn"><i class="fa-solid fa-arrow-up-right"></i></span></button>
+  </div>
+</div>	
