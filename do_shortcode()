@@ -1,0 +1,2 @@
+#amara jodi shortcode ar value custom code ar madhome dekahte chai 
+<?php echo do_shortcode('[reaf_property_filters per_page="12" default_sort="recent"]'); ?>
