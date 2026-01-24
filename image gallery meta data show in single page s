@@ -1,0 +1,17 @@
+#amara jodi meta custom meta field ar array theke data nite chai tobe array "$re_gallery_ids='115,118" ai vabe data dei but amader lagbe $re_gallery_ids='115' ,118'" ai vabe tai explode korte hobe.
+#array_map('intval', $re_gallery_ids); => [115, 108, 0, 0] ata diye all value intiger banano hosse 
+
+
+#normal value ai variable theke naya jabe
+$price = get_post_meta(get_the_ID(), '_re_price', true);
+
+//image slider meta data show
+<?php
+    $re_gallery_ids = get_post_meta(get_the_ID(), '_re_gallery_ids', true);//[0 => "115,108"]
+    $re_gallery_ids = is_array($re_gallery_ids) ? explode(',', $re_gallery_ids[0] ?? '') : explode(',', $re_gallery_ids); //[0 => "115",  1 => "108"]
+    $re_gallery_ids = array_filter(array_map('intval', $re_gallery_ids)); //[115, 108]
+
+    foreach ($re_gallery_ids as $id) {
+        echo wp_get_attachment_image($id, 'large');
+    }
+?>
