@@ -1,0 +1,8 @@
+#amra jodi tags ar array list ber korte chai single page a 
+<?php
+$tags = get_the_tags();
+if ($tags) : ?>
+        <?php foreach ($tags as $t) : ?>
+               <?php echo esc_html($t->name); ?>
+        <?php endforeach; ?>
+<?php endif; ?>
