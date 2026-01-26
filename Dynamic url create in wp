@@ -1,0 +1,2 @@
+#amara jodi dynamic url create korte chai wp te je frist a auto domain name asbe
+<?php echo esc_url(home_url('/property/')); ?>
