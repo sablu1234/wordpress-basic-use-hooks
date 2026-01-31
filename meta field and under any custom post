@@ -1,0 +1,32 @@
+#meta field add 
+
+add_action('add_meta_boxes', function () {
+  add_meta_box(
+    'book_meta', //id
+    'Book Data', //label
+    'book_meta_callback', //calback
+    'porpertypi' //cpt
+  );
+});
+
+function book_meta_callback($post) {
+  $data1 = get_post_meta($post->ID, 'data1', true);
+  $data2 = get_post_meta($post->ID, 'data2', true);
+  $data3 = get_post_meta($post->ID, 'data3', true);
+  ?>
+  <p><input type="text" name="data1" value="<?php echo esc_attr($data1); ?>" placeholder="Data 1"></p>
+  <p><input type="text" name="data2" value="<?php echo esc_attr($data2); ?>" placeholder="Data 2"></p>
+  <p><input type="text" name="data3" value="<?php echo esc_attr($data3); ?>" placeholder="Data 3"></p>
+<?php
+}
+
+add_action('save_post', function ($post_id) {
+  if (isset($_POST['data1'])) update_post_meta($post_id, 'data1', sanitize_text_field($_POST['data1']));
+  if (isset($_POST['data2'])) update_post_meta($post_id, 'data2', sanitize_text_field($_POST['data2']));
+  if (isset($_POST['data3'])) update_post_meta($post_id, 'data3', sanitize_text_field($_POST['data3']));
+});
+
+
+#frontend a show korate ata use koro
+
+get_post_meta(get_the_ID(), 'data1', true);
