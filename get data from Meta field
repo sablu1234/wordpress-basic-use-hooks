@@ -1,0 +1,6 @@
+#amara jodi meta field ar data pate chai tobe ata use korbo 
+#data price ar modhe ase output korte 
+$price = get_post_meta(get_the_ID(), '_re_price', true);
+
+#output ber korte
+<?php echo $price ?>
