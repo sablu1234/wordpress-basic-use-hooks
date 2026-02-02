@@ -1,0 +1,110 @@
+#amara jodi meta custom meta field ar array theke data nite chai tobe array "$re_gallery_ids='115,118" ai vabe data dei but amader lagbe $re_gallery_ids='115' ,118'" ai vabe tai explode korte hobe.
+#array_map('intval', $re_gallery_ids); => [115, 108, 0, 0] ata diye all value intiger banano hosse 
+
+
+#normal value ai variable theke naya jabe
+$price = get_post_meta(get_the_ID(), '_re_price', true);
+
+//image slider meta data show
+<?php
+    $re_gallery_ids = get_post_meta(get_the_ID(), '_re_gallery_ids', true);//[0 => "115,108"]
+    $re_gallery_ids = is_array($re_gallery_ids) ? explode(',', $re_gallery_ids[0] ?? '') : explode(',', $re_gallery_ids); //[0 => "115",  1 => "108"]
+    $re_gallery_ids = array_filter(array_map('intval', $re_gallery_ids)); //[115, 108]
+
+    foreach ($re_gallery_ids as $id) {
+        echo wp_get_attachment_image($id, 'large');
+    }
+?>
+
+
+
+
+
+
+#amar jodi jekon custom post a gallery add korte chai 
+// ===== Only Gallery Metabox (multi images + preselect) =====
+
+add_action('add_meta_boxes', function () {
+  add_meta_box('pp_gallery', 'Gallery', 'pp_gallery_cb', 'porpertypi');
+});
+
+function pp_gallery_cb($post) {
+  wp_nonce_field('pp_gallery', 'pp_gallery_n');
+  $v = get_post_meta($post->ID, 'pp_gallery', true);
+
+  echo "<p>
+    <input type='hidden' class='pp-gids' name='pp_gallery' value='" . esc_attr($v) . "'>
+    <button class='button pp-gadd'>Add Images</button>
+    <button class='button pp-gclear'>Clear</button>
+    <span class='pp-gprev'>";
+
+  foreach (array_filter(array_map('absint', explode(',', $v))) as $id) {
+    $src = wp_get_attachment_image_url($id, 'thumbnail');
+    if ($src) echo "<img src='$src' style='margin-left:6px;max-width:60px;vertical-align:middle'>";
+  }
+  echo "</span></p>";
+}
+
+add_action('admin_enqueue_scripts', function () {
+  wp_enqueue_media();
+  wp_add_inline_script('jquery', "
+    jQuery(document).on('click','.pp-gadd',function(e){
+      e.preventDefault();
+      var p=jQuery(this).closest('p'),
+          i=p.find('.pp-gids'),
+          prev=p.find('.pp-gprev'),
+          ids=(i.val()||'').split(',').map(Number).filter(Boolean);
+
+      var f=wp.media({multiple:true});
+
+      f.on('open',function(){
+        var s=f.state().get('selection'); s.reset();
+        ids.forEach(function(id){ var a=wp.media.attachment(id); a.fetch(); s.add(a); });
+      });
+
+      f.on('select',function(){
+        ids=[]; prev.empty();
+        f.state().get('selection').each(function(a){
+          ids.push(a.id);
+          var u=a.get('sizes')?.thumbnail?.url || a.get('url');
+          prev.append(\"<img src='\"+u+\"' style='margin-left:6px;max-width:60px;vertical-align:middle'>\");
+        });
+        i.val(ids.join(','));
+      });
+
+      f.open();
+    });
+
+    jQuery(document).on('click','.pp-gclear',function(e){
+      e.preventDefault();
+      var p=jQuery(this).closest('p');
+      p.find('.pp-gids').val(''); p.find('.pp-gprev').empty();
+    });
+  ");
+});
+
+add_action('save_post_porpertypi', function ($id) {
+  if (!isset($_POST['pp_gallery_n']) || !wp_verify_nonce($_POST['pp_gallery_n'], 'pp_gallery')) return;
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  if (!current_user_can('edit_post', $id)) return;
+
+  $raw = wp_unslash($_POST['pp_gallery'] ?? '');
+  $val = implode(',', array_filter(array_map('absint', explode(',', $raw))));
+  $val === '' ? delete_post_meta($id, 'pp_gallery') : update_post_meta($id, 'pp_gallery', $val);
+});
+
+
+
+
+
+
+#ai gallery jodi output dekate chai
+<?php
+$ids = get_post_meta(get_the_ID(), 'pp_gallery', true);
+
+if ($ids) {
+    foreach (array_filter(array_map('absint', explode(',', $ids))) as $id) {
+        echo wp_get_attachment_image($id, 'medium');
+    }
+}
+?>
