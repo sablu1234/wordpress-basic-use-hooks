@@ -21,7 +21,7 @@ $price = get_post_meta(get_the_ID(), '_re_price', true);
 
 
 
-#amar jodi jekon custom post a gallery add korte chai 
+#amar jodi jekon custom post a gallery add korte chai =========================================================================================================
 // ===== Only Gallery Metabox (multi images + preselect) =====
 
 add_action('add_meta_boxes', function () {
