@@ -36,3 +36,32 @@ function custom_taxonomy() {
 
 }
 add_action( 'init', 'custom_taxonomy', 0 );
+
+
+
+
+#easy way te jodi taxonomy add korte chai  akhane "porpertypi' ata custom post type bosate hobe ===============================================================================================
+add_action('init', function () {
+  register_taxonomy('porpertypi_category', ['porpertypi'], [
+    'labels' => [
+      'name'          => 'Property Categories',
+      'singular_name' => 'Property Category',
+    ],
+    'public'            => true,
+    'hierarchical'      => true,   // category style (parent/child). tag style চাইলে false
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'show_in_rest'      => true,   // Gutenberg/REST support
+    'rewrite'           => ['slug' => 'porpertypi-category'],
+  ]);
+});
+
+
+#amra jodi ata frontend a dekate chai 
+ <?php echo get_the_term_list(get_the_ID(), 'porpertypi_category', '', ', '); ?>
+
+#ar jodi loop a dekate chai 
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+		<?php echo get_the_term_list(get_the_ID(), 'porpertypi_category', '', ', '); ?>
+<?php endwhile;
+endif; ?>
