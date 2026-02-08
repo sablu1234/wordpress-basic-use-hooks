@@ -1,0 +1,4 @@
+#wordpress ar price variable jodi kono price variable oi deser rigion onujai dekate chai
+# amra jodi variable dekate chai kono deshar region onujai (number_format_i18n((float)$price)) ai formate a korte pari
+
+$fmt_price = $price !== '' ? number_format_i18n((float)$price) : '';
