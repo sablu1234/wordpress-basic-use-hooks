@@ -1,0 +1,17 @@
+#amra jodi nirdisto meta ar upor query korte chia (custop post a)
+
+$q = new WP_Query([
+        'post_type'      => 'porpertypi',
+        'posts_per_page' => 6,
+        'post_status'    => 'publish',
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+
+        'meta_query' => [
+            [
+                'key'     => 'pp_purpose', // meta field নাম
+                'value'   => 'For Rent',
+                'compare' => '='
+            ]
+        ]
+    ]);
