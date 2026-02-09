@@ -1,0 +1,2 @@
+#amara jodi je post korse tar name pete chai tobe ai funciton call korbo
+  <?php echo get_the_author_meta('display_name', get_the_author_meta("ID")); ?>
