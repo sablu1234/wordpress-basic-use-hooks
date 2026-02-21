@@ -110,4 +110,13 @@
 
 
 #amra jodi loop data frontend a dekate chai tobe==============================================================================
-
+<?php
+$items = get_post_meta(get_the_ID(), 'pp_repeat_items', true);
+if (is_array($items) && !empty($items)) {
+    echo '<ul>';
+    foreach ($items as $item) {
+        echo '<li>' . esc_html($item) . '</li>';
+    }
+    echo '</ul>';
+}
+?>
