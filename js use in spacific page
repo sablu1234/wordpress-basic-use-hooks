@@ -1,0 +1,21 @@
+#amra jodi spacific page a js use korte chai .
+add_action('wp_footer', 'replace_course_title');
+
+function replace_course_title() {
+
+    if ( is_page('muscle-synergy-program') ) { // only this page
+        ?>
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const title = document.querySelector(".tutor-course-name a");
+
+            if (title) {
+                title.textContent = "Muscle Synergy Program";
+            }
+
+        });
+        </script>
+        <?php
+    }
+}
