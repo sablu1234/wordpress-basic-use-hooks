@@ -1,0 +1,13 @@
+#amra jodi single page a condition use korte chai 
+add_action('wp_footer', 'replace_course_title');
+
+function replace_course_title() {
+
+    if ( is_singular('properties') ) { // only single properties page
+        ?>
+        <script>
+       console.log('hello');
+        </script>
+        <?php
+    }
+}
