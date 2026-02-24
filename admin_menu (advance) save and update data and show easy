@@ -1,0 +1,78 @@
+#amra jodi "admin_menu" and "admin_submenu"  create korte chai tobe class ar madhome ai vabe korte pari easily
+class About_Pages_Dynamic_Data {
+
+    public function __construct() {
+        add_action('admin_menu', [$this, 'register_menu']);
+    }
+
+    public function register_menu() {
+
+        // Parent Menu
+        add_menu_page(
+            'Theme Settings',// page title
+            'Theme Settings',// menu title
+            'manage_options',// capability
+            'theme-settings',// menu slug
+            [$this, 'parent_page'], // fixed callback
+            'dashicons-admin-generic',// icon
+            25// position
+        );
+
+        // Submenu (About Page)
+        add_submenu_page(
+            'theme-settings',// parent slug
+            'Sell Pages Dynamic Data',// page title
+            'Sell Pages Dynamic Data',// menu title
+            'manage_options',//capability
+            'sell-pages-dynamic-data',//menu slug
+            [$this, 'admin_sell_page_content']// callback
+        );
+    }
+
+    // Parent Page Content
+    public function parent_page() {
+        echo '<div class="wrap"><h1>Theme Settings</h1></div>';
+    }
+
+    // Submenu Page Content
+    public function admin_sell_page_content() {
+
+        if (isset($_POST['sell_property_percent'])) {
+            update_option('sell_property_percent', sanitize_text_field($_POST['sell_property_percent']));
+            update_option('sell_experience', sanitize_text_field($_POST['sell_experience']));
+            echo '<div class="updated"><p>Saved Successfully</p></div>';
+        }
+        ?>
+        <div class="wrap">
+            <h1>Sell Pages Dynamic Data</h1>
+            <form method="post">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">Sell Percent</th>
+                        <td>
+                            <input type="number" name="sell_property_percent"
+                            value="<?php echo esc_attr(get_option('sell_property_percent')); ?>"
+                            class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Sell Percent</th>
+                        <td>
+                            <input type="text" name="sell_experience"
+                            value="<?php echo esc_attr(get_option('sell_experience')); ?>"
+                            class="regular-text">
+                        </td>
+                    </tr>
+                </table>
+                <?php submit_button(); ?>
+            </form>
+        </div>
+        <?php
+    }
+}
+
+new About_Pages_Dynamic_Data();
+
+#frontene a dekate amra use korbo
+$sell_property_percent = get_option('sell_property_percent');
+<?php echo !empty($sell_property_percent) ? esc_html($sell_property_percent) : '100';?>
