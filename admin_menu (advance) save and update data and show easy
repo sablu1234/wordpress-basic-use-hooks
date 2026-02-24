@@ -36,17 +36,25 @@ class About_Pages_Dynamic_Data {
 
     // Submenu Page Content
     public function admin_sell_page_content() {
+        $saved = false;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        if (isset($_POST['sell_property_percent'])) {
-           if (isset($_POST['sell_property_percent'])) {
+            if (isset($_POST['sell_property_percent'])) {
             update_option('sell_property_percent', sanitize_text_field($_POST['sell_property_percent']));
             }
 
             if (isset($_POST['sell_experience'])) {
             update_option('sell_experience', sanitize_text_field($_POST['sell_experience']));
             }
-            echo '<div class="updated"><p>Saved Successfully</p></div>';
+            $saved = true;
         }
+
+        if ($saved) {
+        echo '<div class="updated notice is-dismissible"><p>Saved Successfully</p></div>';
+        }else{
+        echo '<div class="notice notice-info is-dismissible"><p>Make changes and click save to update the values.</p></div>';
+        }
+            
         ?>
         <div class="wrap">
             <h1>Sell Pages Dynamic Data</h1>
