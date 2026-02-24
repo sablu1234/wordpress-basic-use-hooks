@@ -38,8 +38,13 @@ class About_Pages_Dynamic_Data {
     public function admin_sell_page_content() {
 
         if (isset($_POST['sell_property_percent'])) {
+           if (isset($_POST['sell_property_percent'])) {
             update_option('sell_property_percent', sanitize_text_field($_POST['sell_property_percent']));
+            }
+
+            if (isset($_POST['sell_experience'])) {
             update_option('sell_experience', sanitize_text_field($_POST['sell_experience']));
+            }
             echo '<div class="updated"><p>Saved Successfully</p></div>';
         }
         ?>
