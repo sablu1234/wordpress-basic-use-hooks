@@ -68,3 +68,8 @@
         });
     ");
     });
+
+#frontend a dekate  =====================================================================
+ $img_id = (int) get_post_meta(get_the_ID(), '_dev_img_id', true);
+if ($img_id) echo wp_get_attachment_image($img_id, 'medium');
+?>
