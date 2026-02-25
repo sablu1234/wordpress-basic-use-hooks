@@ -1,0 +1,44 @@
+#amra jodi one to many relation korte chai (porpertypi) ata amra je porperty ar under a show korabo tar slug , (developer) ata apra je cpt dropdown a rakbo
+
+function meta_field_for_developer() {
+    add_action('add_meta_boxes', function () {
+    add_meta_box(
+        'porpertypi_developer_box',
+        'Developer',
+        'porpertypi_developer_box_html',
+        'porpertypi',   // <-- YOUR CPT SLUG
+        'side',
+        'default'
+    );
+    });
+
+    function porpertypi_developer_box_html($post){
+    $selected = (int) get_post_meta($post->ID, '_developer_id', true);
+
+    $developers = get_posts([
+        'post_type'   => 'developer',
+        'numberposts' => -1,
+        'orderby'     => 'title',
+        'order'       => 'ASC',
+    ]);
+
+    echo '<select name="developer_id" style="width:100%">';
+    echo '<option value="0">Select Developer</option>';
+    foreach ($developers as $dev) {
+        echo '<option value="'.esc_attr($dev->ID).'" '.selected($selected, $dev->ID, false).'>'
+        .esc_html($dev->post_title).
+        '</option>';
+    }
+    echo '</select>';
+    }
+
+    // Save selected developer
+    add_action('save_post_porpertypi', function($post_id){
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $dev_id = isset($_POST['developer_id']) ? (int) $_POST['developer_id'] : 0;
+    update_post_meta($post_id, '_developer_id', $dev_id);
+    });
+}
+meta_field_for_developer();
