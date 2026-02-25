@@ -1,0 +1,9 @@
+#amra jodi shortcode create korte chai 
+function property_management_hello_shortcode() {
+    ob_start();
+    ?>
+    <h1>hello</h1>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('property_management_hello', 'property_management_hello_shortcode');
