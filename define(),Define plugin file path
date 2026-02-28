@@ -1,0 +1,5 @@
+#amara jodi plugin file path define korte chai 
+// Define plugin file path
+if (!defined('NOTIFY_URL')) {
+    define('NOTIFY_URL', __FILE__);
+}
