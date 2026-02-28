@@ -1,0 +1,2 @@
+#amra jodi admin mail chai tobe
+$admin_email = 'get_option('admin_email')';
