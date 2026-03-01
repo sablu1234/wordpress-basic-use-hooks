@@ -1,0 +1,89 @@
+#amra jodi wp setting api diye wp te data show korate chai akhane amir joto isse submenu addkorte parbo
+<?php
+class About_Pages_Dynamic_Data {
+
+    public function __construct() {
+        add_action('admin_menu', [$this, 'register_menu']);
+    }
+
+    public function register_menu() {
+
+        // Parent Menu
+        add_menu_page(
+            'Theme Settings',// page title
+            'Theme Settings',// menu title
+            'manage_options',// capability
+            'theme-settings',// menu slug
+            [$this, 'parent_page'], // fixed callback
+            'dashicons-admin-generic',// icon
+            25// position
+        );
+
+        // Submenu (sell Page)
+        add_submenu_page(
+            'theme-settings',// parent slug
+            'Sell Pages',// page title
+            'Sell Pages',// menu title
+            'manage_options',//capability
+            'sell-pages-dynamic-data',//menu slug
+            [$this, 'admin_sell_page_content']// callback
+        );
+        
+        
+
+    }
+    
+    // Parent Page Content
+    public function parent_page() {
+        echo '<div class="wrap"><h1>Theme Settings</h1></div>';
+    }
+
+    // Submenu sell Content
+    public function admin_sell_page_content() {
+        $saved = false;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                if (isset($_POST['sell_property_percent'])) {
+                update_option('sell_property_percent', sanitize_text_field($_POST['sell_property_percent']));
+                }
+
+                
+                $saved = true;
+            }
+
+            if ($saved) {
+            echo '<div class="updated notice is-dismissible"><p>Saved Successfully</p></div>';
+            }else{
+            echo '<div class="notice notice-info is-dismissible"><p>Make changes and click save to update the values.</p></div>';
+            }
+            
+        ?>
+        <div class="wrap">
+            <h1>Sell Pages Dynamic Data</h1>
+            <form method="post">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">Sell Percent</th>
+                        <td>
+                            <input type="number" name="sell_property_percent"
+                            value="<?php echo esc_attr(get_option('sell_property_percent')); ?>"
+                            class="regular-text">
+                        </td>
+                    </tr>
+                </table>
+                <?php submit_button(); ?>
+            </form>
+        </div>
+        <?php
+    }
+    
+}
+
+new About_Pages_Dynamic_Data();
+
+
+#frontend a data show korate hole
+<?php 
+      $sell_property_percent = get_option('sell_property_percent');          
+  ?>
+  <?php echo !empty($sell_property_percent) ? esc_html($sell_property_percent) : '100';?>
