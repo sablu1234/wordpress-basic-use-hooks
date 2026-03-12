@@ -1,5 +1,7 @@
-#amra jodi form submit kore mail pathate chai tobe ata use kora jabe
+#amra jodi form submit kore mail pathate chai tobe ata use kora jabe (sanitize_text_field(), ata text ar jonno and mail ar jonno ata sanitize_email()) , ata built in funcion ( header("Refresh: 5; url=" . $_SERVER['REQUEST_URI']);)
+ata use kora hoi submit form ar por 3 second ar por same page a redirect hobe( url=" . $_SERVER['REQUEST_URI']) ata diye ata current page k dhore
 
+<!-- HTML Form -->
 <form method="POST" action="">
     <label for="user_name">Full Name:</label>
     <input type="text" id="user_name" name="user_name" required placeholder="Enter your full name">
@@ -41,8 +43,8 @@ if (isset($_POST['submit'])) {  // Check if the form is submitted
     // Display success or error message
     if ($sent) {
         echo "<p>Thank you! Your submission has been sent successfully.</p>";
-        header("Location: " . $_SERVER['REQUEST_URI']);
-        exit;
+        header("Refresh: 4; url=" . $_SERVER['REQUEST_URI']);  // Redirect to the same page after 2 seconds
+        exit; // Ensure that script stops here after redirection
     } else {
         echo "<p>Error sending your submission. Please try again.</p>";
     }
