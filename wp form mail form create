@@ -1,0 +1,77 @@
+#amra jodi mail form create korte chai
+ <form method="post" action="<?php echo $action_url; ?>" novalidate>
+    <input type="hidden" name="action" value="complaints_form_submit">
+    <input type="hidden" name="complaints_nonce" value="<?php echo esc_attr($nonce); ?>">
+    <input type="hidden" name="complaints_source_url" value="<?php echo esc_url(home_url(add_query_arg([], $_SERVER['REQUEST_URI']))); ?>">
+
+    <div class="complaints-formGrid">
+      <div class="complaints-field">
+        <label class="complaints-label">Full Name *</label>
+        <input class="complaints-input" name="full_name" type="text" placeholder="Your full name" required>
+      </div>
+
+      <div class="complaints-field">
+        <label class="complaints-label">Email Address *</label>
+        <input class="complaints-input" name="email" type="email" placeholder="Your email" required>
+      </div>
+    <button class="complaints-btn" type="submit">Submit Details</button>
+  </form>
+
+
+//niser code use korle amra form pathate parbo ajax diye wp te ==================================================================
+add_action('admin_post_complaints_form_submit', 'complaints_form_submit_handler');
+add_action('admin_post_nopriv_complaints_form_submit', 'complaints_form_submit_handler');
+
+function complaints_form_submit_handler(){
+
+  if (!isset($_POST['complaints_nonce']) || !wp_verify_nonce($_POST['complaints_nonce'], 'complaints_form_nonce')) {
+    complaints_redirect_back('invalid_nonce');
+  }
+
+  $full_name      = isset($_POST['full_name']) ? sanitize_text_field($_POST['full_name']) : '';
+  $email          = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+  $source_url     = isset($_POST['complaints_source_url']) ? esc_url_raw($_POST['complaints_source_url']) : home_url('/');
+
+  if ($full_name === '' || $email === '') {
+    complaints_redirect_back('missing_required');
+  }
+
+  if (!is_email($email)) {
+    complaints_redirect_back('invalid_email');
+  }
+
+  // Multiple recipients (add your extra emails here)
+  $recipients = array_filter([
+    get_option('admin_email'),
+    // 'support@yourdomain.com',
+    // 'complaints@yourdomain.com',
+  ]);
+
+  $subject = 'New Complaint Submitted - CBA Real Estate';
+
+  $body  = "A new complaint has been submitted:\n\n";
+  $body .= "Full Name: {$full_name}\n";
+  $body .= "Email: {$email}\n";
+  $body .= "Source Page:\n{$source_url}\n";
+
+  $headers = [];
+  $headers[] = 'Content-Type: text/plain; charset=UTF-8';
+  $headers[] = 'Reply-To: ' . $full_name . ' <' . $email . '>';
+
+  $sent = wp_mail($recipients, $subject, $body, $headers);
+
+  if(!$sent){
+    complaints_redirect_back('mail_failed');
+  }
+
+  $redirect = add_query_arg('complaints-success', '1', $source_url);
+  wp_safe_redirect($redirect);
+  exit;
+}
+
+function complaints_redirect_back($error_code){
+  $source_url = isset($_POST['complaints_source_url']) ? esc_url_raw($_POST['complaints_source_url']) : home_url('/');
+  $redirect = add_query_arg('complaints-error', $error_code, $source_url);
+  wp_safe_redirect($redirect);
+  exit;
+}
