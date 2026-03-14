@@ -50,3 +50,11 @@ if (isset($_POST['submit'])) {  // Check if the form is submitted
     }
 }
 ?>
+
+
+
+//amra jodi input diye same page dekte chai ============================================
+<input type="hidden" name="complaints_source_url" value="<?php echo esc_url(home_url(add_query_arg([], $_SERVER['REQUEST_URI']))); ?>">
+#same page a redirct korte 
+$source_url     = isset($_POST['complaints_source_url']) ? esc_url_raw($_POST['complaints_source_url']) : home_url('/');
+header("Refresh: 1; url=" . $source_url);
