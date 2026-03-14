@@ -58,3 +58,9 @@ if (isset($_POST['submit'])) {  // Check if the form is submitted
 #same page a redirct korte 
 $source_url     = isset($_POST['complaints_source_url']) ? esc_url_raw($_POST['complaints_source_url']) : home_url('/');
 header("Refresh: 1; url=" . $source_url);
+
+
+#amra jodi header a key value pathate chai  ata use kore pathate pari (add_query_arg('action_name','value', $source_url))
+$redirect = add_query_arg('complaints-success', '1', $source_url);
+  wp_safe_redirect($redirect);
+  exit;
