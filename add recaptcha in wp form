@@ -9,6 +9,9 @@
     <button class="newsletter_btn" type="submit" name="newsletter_submit">SUBSCRIBE</button>
 </form>
 
+<!-- Google reCAPTCHA Script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
 //php te ai code dite hobe===============================================================================
 
@@ -62,5 +65,3 @@ if (isset($_POST['newsletter_submit'])) {
 }
 ?>
 
-<!-- Google reCAPTCHA Script -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
