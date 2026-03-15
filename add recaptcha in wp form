@@ -1,0 +1,63 @@
+#amra jodi wp te recaptcha form a add korte chai 
+<form class="newsletter_form" method="post">
+    <input class="newsletter_input" type="text" name="newsletter_name" placeholder="Enter your Name*" required>
+    <input class="newsletter_input" type="email" name="newsletter_email" placeholder="Enter your E-mail*" required>
+
+    <!-- Google reCAPTCHA -->
+    <div class="g-recaptcha" data-sitekey="6Lcy44osAAAAACYEfxBwfbFgj3-UD1MBKdYpNPn7"></div>
+
+    <button class="newsletter_btn" type="submit" name="newsletter_submit">SUBSCRIBE</button>
+</form>
+
+
+//php te ai code dite hobe===============================================================================
+
+<?php
+// Multiple recipients (add your extra emails here)
+
+
+if (isset($_POST['newsletter_submit'])) {
+    $name  = sanitize_text_field($_POST['newsletter_name']);
+    $email = sanitize_email($_POST['newsletter_email']);
+    $recaptcha_response = isset($_POST['g-recaptcha-response']) ? sanitize_text_field($_POST['g-recaptcha-response']) : '';
+
+    if (empty($recaptcha_response)) {
+        echo "Please complete the reCAPTCHA.";
+    } elseif (!is_email($email)) {
+        echo "Invalid email address.";
+    } else {
+
+        $secret_key = '6Lcy44osAAAAAMSL93rG8eC0aLVmnkG03AVvDgjO';
+
+        $verify_response = wp_remote_post('https://www.google.com/recaptcha/api/siteverify', [
+            'body' => [
+                'secret'   => $secret_key, 
+                'response' => $recaptcha_response,
+                'remoteip' => $_SERVER['REMOTE_ADDR'],
+            ]
+        ]);
+
+        if (is_wp_error($verify_response)) {
+            echo "reCAPTCHA verification failed. Please try again.";
+        } else {
+            $response_body = wp_remote_retrieve_body($verify_response);
+            $result = json_decode($response_body, true);
+
+            if (isset($result['success']) && $result['success'] === true) {
+                $recipients = array_filter([
+                    get_option('admin_email'),
+                ]);
+                $subject = "Newsletter Subscription";
+                $message = "Hi,\n\nNew Subscriber Name: $name\nEmail: $email\n\nRegards";
+                $headers = ['Content-Type: text/plain; charset=UTF-8'];
+
+                wp_mail($recipients, $subject, $message, $headers);
+
+                echo "Subscription successful. Please check your email.";
+            } else {
+                echo "reCAPTCHA validation failed. Please try again.";
+            }
+        }
+    }
+}
+?>
