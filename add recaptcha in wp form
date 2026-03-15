@@ -14,7 +14,7 @@ obossoi script add kora thakte hobe. script form ar nise rakar try korbe
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
-//php te ai code dite hobe===============================================================================
+//php te ai code dite hobe(frist rechapcha ar value niye nise condition dite hobe)===============================================================================
 
 <?php
 // Multiple recipients (add your extra emails here)
