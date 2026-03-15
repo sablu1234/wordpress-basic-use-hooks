@@ -1,4 +1,5 @@
-#amra jodi wp te recaptcha form a add korte chai 
+#amra jodi wp te recaptcha form a add korte chai jekono form a just (<div class="g-recaptcha" data-sitekey="6Lcy44osAAAAACYEfxBwfbFgj3-UD1MBKdYpNPn7"></div>) ata bosabo ar niser verify response korlei hobe 
+obossoi script add kora thakte hobe. script form ar nise rakar try korbe
 <form class="newsletter_form" method="post">
     <input class="newsletter_input" type="text" name="newsletter_name" placeholder="Enter your Name*" required>
     <input class="newsletter_input" type="email" name="newsletter_email" placeholder="Enter your E-mail*" required>
