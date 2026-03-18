@@ -1,3 +1,0 @@
-#amra jodi button a link add korte chia 
-
-<button onclick="window.location.href='<?php echo esc_url(get_permalink()); ?>'">Beds</button>

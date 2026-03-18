@@ -1,0 +1,8 @@
+#amra jodi button a link add korte chia 
+
+<button onclick="window.location.href='<?php echo esc_url(get_permalink()); ?>'">Beds</button>
+
+
+#amra jodi div clickable korte chai (onclick="window.location.href='<?php echo get_permalink(); ?>'") ata dile click able hobe but user bojar jonno cursor on korte hobe tai(style="cursor:pointer;") ata use korbo
+
+<div class="index-title" onclick="window.location.href='<?php echo get_permalink(); ?>'" style="cursor:pointer;"><?php echo esc_html(get_the_title($id)); ?></div>
