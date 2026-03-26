@@ -1,0 +1,21 @@
+#amra jodi action hook create korte chai (mytheme_before_content) ata hook ar name disi ar jekhane use show korte chai oikhane bosabo .
+
+<?php do_action( 'mytheme_before_content' )?>
+
+#tar por jokhon dorkar hook call korbo
+
+add_action( 'mytheme_before_content','my_theme_promo_banner' );
+function my_theme_promo_banner(){
+	echo'<h1>hello</h1>';
+}
+
+
+#amra jodi action hook ar kono function remove korte chai (1sta a 'mytheme_before_content' hook name tarpor function name 'my_theme_promo_banner' ) 
+remove_action( 'mytheme_before_content', 'my_theme_promo_banner' );
+
+
+#but amra jodi 'add_action' a priority dei tobe funciton remove korteo 'priority' dite hobe=========================================================================
+
+add_action( 'mytheme_before_content','my_theme_promo_banner',5 );
+
+remove_action( 'mytheme_before_content', 'my_theme_promo_banner',5 );
