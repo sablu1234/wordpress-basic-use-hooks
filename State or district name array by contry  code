@@ -1,0 +1,9 @@
+#amra jodi country ar short name ar madhome oi country ar state ber korte chai 
+
+add_action('init', function() {
+    $states = WC()->countries->get_states('UG');
+
+    echo '<pre>';
+    print_r($states);
+    echo '</pre>';
+});
