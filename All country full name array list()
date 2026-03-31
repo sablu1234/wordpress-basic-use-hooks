@@ -1,0 +1,9 @@
+#amra jodi all country name ar list chai 
+
+add_action('init', function() {
+    $countries = WC()->countries->get_countries();
+    
+    echo '<pre>';
+    print_r($countries);
+    echo '</pre>';
+});
