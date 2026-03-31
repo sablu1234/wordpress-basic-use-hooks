@@ -1,0 +1,6 @@
+#amra jodi worpress a all country ar country code chai (exm"[0] => AF [1] => AX [2] => AL [3] => DZ [4] => AS [5] => AD [6] => AO") niser code use korte pari
+
+add_action('init', function() {
+    $codes = array_keys(WC()->countries->get_countries());
+	print_r($codes);
+});

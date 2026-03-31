@@ -1,6 +1,0 @@
-#amra jodi worpress a all country ar country code chai  niser code use korte pari
-
-add_action('init', function() {
-    $codes = array_keys(WC()->countries->get_countries());
-	print_r($codes);
-});
