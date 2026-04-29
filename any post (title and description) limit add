@@ -1,0 +1,35 @@
+#amra jodi jekono post type ar title and descripiton ar character limit kore dite chai(($post_type !== '{your post type}')) akhane just your post type dilei hobe
+
+// Title and Description character limit
+add_action('admin_footer', function () {
+    global $post_type;
+
+    if ($post_type !== 'achievements') {
+        return;
+    }
+    ?>
+    <script>
+        jQuery(document).ready(function ($) {
+
+            // Title max 20 characters
+            $('#title').attr('maxlength', 20);
+
+            // Description/editor max 30 characters
+            $('#content').attr('maxlength', 30);
+
+            $('#title').on('input', function () {
+                if ($(this).val().length > 20) {
+                    $(this).val($(this).val().substring(0, 20));
+                }
+            });
+
+            $('#content').on('input', function () {
+                if ($(this).val().length > 30) {
+                    $(this).val($(this).val().substring(0, 30));
+                }
+            });
+
+        });
+    </script>
+    <?php
+});
