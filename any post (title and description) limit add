@@ -1,4 +1,5 @@
 #amra jodi jekono post type ar title and descripiton ar character limit kore dite chai(($post_type !== '{your post type}')) akhane just your post type dilei hobe
+//ai dui line dile ( $('#title').after('<p style="color:#666;">Max 20 characters allowed</p>'); $('#content').after('<p style="color:#666;">Max 30 characters allowed</p>');) tmi sho korate parbe koto line hobe tar character
 
 // Title and Description character limit
 add_action('admin_footer', function () {
@@ -22,6 +23,9 @@ add_action('admin_footer', function () {
                     $(this).val($(this).val().substring(0, 20));
                 }
             });
+
+            $('#title').after('<p style="color:#666;">Max 20 characters allowed</p>');
+            $('#content').after('<p style="color:#666;">Max 30 characters allowed</p>');
 
             $('#content').on('input', function () {
                 if ($(this).val().length > 30) {
