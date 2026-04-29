@@ -1,0 +1,29 @@
+#amra jodi kono new tab khulte chai "Trash" ar moto ai code use korte pari akhane just (views_edit-{your post type}, $url = admin_url('edit.php?post_type={your post type}&my_trash=1');, $_GET['post_type'] === '{your post type}' &&) 
+and $url = admin_url('edit.php?post_type=porpertypi&my_trash=1'); akhane (my_trash) ata je name dibo same name akhane use korbo (isset($_GET['my_trash'])) 
+
+// My Trash tab---------------------------------------------
+add_filter('views_edit-porpertypi', function ($views) {
+
+  $url = admin_url('edit.php?post_type=porpertypi&my_trash=1');
+
+  $class = isset($_GET['my_trash']) ? ' class="current"' : '';
+
+  $views['my_trash'] = '<a href="' . esc_url($url) . '"' . $class . '>My Trash</a>';
+
+  return $views;
+});
+
+
+// My Trash tab er under trash property show korbe
+add_action('pre_get_posts', function ($query) {
+
+  if (!is_admin() || !$query->is_main_query()) return;
+
+  if (
+    isset($_GET['post_type']) &&
+    $_GET['post_type'] === 'porpertypi' &&
+    isset($_GET['my_trash'])
+  ) {
+    $query->set('post_status', 'trash');
+  }
+});
