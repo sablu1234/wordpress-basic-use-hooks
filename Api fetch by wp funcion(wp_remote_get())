@@ -1,0 +1,14 @@
+#amra je kono (get) api use korte pari (wp_remote_get()) ata use kore
+
+<?php
+function get_exchange_rates() {
+    $response = wp_remote_get('https://v6.exchangerate-api.com/v6/9efd8f74f342da8c3e35b705/latest/USD');
+    $body = wp_remote_retrieve_body($response);
+    return json_decode($body, true);
+}
+
+$data = get_exchange_rates(); ?>
+<pre>
+<?php print_r( $data ); ?>
+</pre> 
+
