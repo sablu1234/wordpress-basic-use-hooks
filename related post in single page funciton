@@ -1,0 +1,8 @@
+#amra jodi single page a related post dekate chai 
+
+ <?php
+  woocommerce_output_related_products(array(
+      'posts_per_page' => 3,
+      'columns'        => 3,
+  ));
+?>
