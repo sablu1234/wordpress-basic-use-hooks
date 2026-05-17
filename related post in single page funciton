@@ -6,3 +6,34 @@
       'columns'        => 3,
   ));
 ?>
+
+
+============================================================================================================
+amra jodi nijer design korete chai tobe ata use korbo 
+
+
+<?php
+global $product;
+
+// Get 3 related products
+$related_ids = wc_get_related_products( $product->get_id(), 3 );
+
+if ( ! empty( $related_ids ) ) : ?>
+    <section class="related products">
+        <h2>Related Products</h2>
+        <ul class="products columns-3">
+            <?php foreach ( $related_ids as $related_id ) :
+                $related_product = wc_get_product( $related_id );
+                ?>
+                <li <?php wc_product_class( '', $related_product ); ?>>
+                    <a href="<?php echo get_permalink( $related_id ); ?>">
+                        <?php echo get_the_post_thumbnail( $related_id, 'woocommerce_thumbnail' ); ?>
+                        <h2 class="woocommerce-loop-product__title"><?php echo $related_product->get_name(); ?></h2>
+                        <span class="price"><?php echo $related_product->get_price_html(); ?></span>
+                    </a>
+                    <?php echo do_shortcode('[add_to_cart id="' . $related_id . '"]'); ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+<?php endif; ?>
