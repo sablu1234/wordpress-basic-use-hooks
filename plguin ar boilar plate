@@ -1,0 +1,17 @@
+#amar plugin ar boilarplate
+
+<?php
+/**
+ * Plugin Name: Age Verification
+ * Plugin URI: https://example.com
+ * Description: A simple WordPress plugin for age verification.
+ * Version: 1.0.0
+ * Author: Sablu Hasan
+ * Author URI: https://example.com
+ * License: GPL2
+ * Text Domain: age-verification
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
