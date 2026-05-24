@@ -1,0 +1,24 @@
+#login faild or user empty thakle redirect korbe amar deya page a
+
+// login failed action
+add_action('wp_login_failed', function($username) {
+
+    wp_safe_redirect(home_url('/my-account/?login=failed'));
+
+    exit;
+
+});
+
+add_filter('authenticate', function($user, $username, $password) {
+
+    if (empty($username) || empty($password)) {
+
+        wp_safe_redirect(home_url('/my-account/?login=empty'));
+
+        exit;
+
+    }
+
+    return $user;
+
+}, 30, 3);
