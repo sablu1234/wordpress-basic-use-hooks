@@ -1,0 +1,66 @@
+#amra jodi chai checkout limit set korte tobe niser code use korte hobe amra jodi limit update korte chai ai dui jai gain variable ar quantity change hobe ("$purchase_limit = 2; // Change this number only(line 8)" and "$purchase_limit = 2; // Change this number only(line 37)")
+
+// WooCommerce: Set max quantity per product in cart using one variable
+add_filter('woocommerce_add_to_cart_validation', 'custom_limit_product_quantity_in_cart', 10, 5);
+
+function custom_limit_product_quantity_in_cart($passed, $product_id, $quantity, $variation_id = 0, $variations = array()) {
+
+    $purchase_limit = 2; // Change this number only
+
+    $target_id = $variation_id ? $variation_id : $product_id;
+    $current_qty = 0;
+
+    if (WC()->cart) {
+        foreach (WC()->cart->get_cart() as $cart_item) {
+            $cart_id = !empty($cart_item['variation_id']) ? $cart_item['variation_id'] : $cart_item['product_id'];
+
+            if ($cart_id == $target_id) {
+                $current_qty += $cart_item['quantity'];
+            }
+        }
+    }
+
+    if (($current_qty + $quantity) > $purchase_limit) {
+        wc_add_notice('You can only buy maximum ' . $purchase_limit . ' quantity of this product.', 'error');
+        return false;
+    }
+
+    return $passed;
+}
+
+
+// Set quantity input max value
+add_filter('woocommerce_quantity_input_args', 'custom_set_quantity_input_limit', 10, 2);
+
+function custom_set_quantity_input_limit($args, $product) {
+
+    $purchase_limit = 2; // Change this number only
+
+    $args['max_value'] = $purchase_limit;
+    $args['min_value'] = 1;
+
+    return $args;
+}
+
+
+// Extra protection: force cart quantity to limit
+add_action('woocommerce_before_calculate_totals', 'custom_force_cart_quantity_limit', 20);
+
+function custom_force_cart_quantity_limit($cart) {
+
+    $purchase_limit = 2; // Change this number only
+
+    if (is_admin() && !defined('DOING_AJAX')) {
+        return;
+    }
+
+    if (did_action('woocommerce_before_calculate_totals') >= 2) {
+        return;
+    }
+
+    foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+        if ($cart_item['quantity'] > $purchase_limit) {
+            $cart->set_quantity($cart_item_key, $purchase_limit, false);
+        }
+    }
+}
