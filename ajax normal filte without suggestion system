@@ -1,0 +1,316 @@
+#amra jodi full ajax filter create kote chai but akhane filter suggestion option thakbe na
+#nise ami style dise input area ar. input a id ase (title,price,data1) ai id ar madhome (loadProducts() ai funcitons diye data ajax ar madhome recebe korbe ai fucniton)
+(document.getElementById('title').addEventListener('keyup',loadProducts);) ai type ar onse joto gulo input are nibo tar pur keyup action a filter ai 
+function(loadProducts()) k run korbe (formData.append('title',document.getElementById('title').value);) aigulo diye "formData" ai variable a age all input search data
+akata list akare store hosse ajax filter ar jonno.joto meta hobe toto append korte hobe. akhane data fetch kore (fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+            method:'POST', body:formData})) ajax ar madhome pathano hosse ajax filter ar jonno ar response astase . (.then(res => res.text())) akhane server jedata pathasse
+text() ai funciotn ata text or html akare disse built in js function.ar (document.getElementById('products').innerHTML = html;) akahne "products"id te data dekabe
+tmi (= html;)ata jekono name dite paro but html duijai gai same thakbe (response and = html a).
+
+#ajax data receve korte ai duitea use korbe akta login and arekta logout user data dekahr jonno (add_action('wp_ajax_product_search','product_search_callback');, 
+add_action('wp_ajax_nopriv_product_search','product_search_callback');) 
+akhane aciton name "wp_ajax_product_search"follow kore ai name hobe login ar jonno (wp_ajax_ar por"product_search") hobe logout hole ata (wp_ajax_nopriv) ata hobe
+
+akhane ($title = sanitize_text_field($_POST['title'] ?? '');) title name ta akhane jeta dibo saitai dite hobe (formData.append('title',document.getElementById('title').value
+    );)
+  $args = [
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => 12,
+        'meta_query'     => []
+    ]; 
+
+akhane kon post type hobe dite hobe stauts ki koto gulo show hobe meta_query ata built in
+=============================================================start ============================================================
+
+
+<style>
+.ajax-filter-wrapper{
+    max-width:1400px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+.filter-box{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.filter-box input{
+    width:100%;
+    height:55px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:0 15px;
+    font-size:15px;
+}
+
+.filter-box input:focus{
+    outline:none;
+    border-color:#111;
+}
+
+.products-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.product-card{
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.product-card img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    display:block;
+}
+
+.product-content{
+    padding:20px;
+}
+
+.product-content h3{
+    margin:0 0 10px;
+    font-size:18px;
+}
+
+.product-meta{
+    color:#666;
+    margin-bottom:10px;
+}
+
+.product-price{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.product-btn{
+    display:block;
+    text-align:center;
+    background:#111;
+    color:#fff;
+    text-decoration:none;
+    padding:12px;
+    border-radius:10px;
+}
+
+@media(max-width:1200px){
+
+    .products-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:768px){
+
+    .filter-box{
+        grid-template-columns:1fr;
+    }
+
+    .products-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:500px){
+
+    .products-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+<div class="ajax-filter-wrapper">
+
+    <div class="filter-box">
+
+        <input
+            type="text"
+            id="title"
+            placeholder="Search Title"
+        >
+
+        <input
+            type="number"
+            id="price"
+            placeholder="Price"
+        >
+
+        <input
+            type="text"
+            id="data1"
+            placeholder="Book Data"
+        >
+
+    </div>
+
+    <div id="products"></div>
+
+</div>
+
+<script>
+
+function loadProducts(){
+
+    let formData = new FormData();
+
+    formData.append(
+        'action',
+        'product_search'
+    );
+
+    formData.append(
+        'title',
+        document.getElementById('title').value
+    );
+
+    formData.append(
+        'price',
+        document.getElementById('price').value
+    );
+
+    formData.append(
+        'data1',
+        document.getElementById('data1').value
+    );
+
+    fetch(
+        '<?php echo admin_url('admin-ajax.php'); ?>',
+        {
+            method:'POST',
+            body:formData
+        }
+    )
+    .then(res => res.text())
+    .then(html => {
+
+        document.getElementById('products').innerHTML = html;
+
+    });
+
+}
+
+loadProducts();
+
+document
+.getElementById('title')
+.addEventListener('keyup',loadProducts);
+
+document
+.getElementById('price')
+.addEventListener('keyup',loadProducts);
+
+document
+.getElementById('data1')
+.addEventListener('keyup',loadProducts);
+
+</script>
+
+
+
+
+// filter area 
+add_action('wp_ajax_product_search','product_search_callback');
+
+add_action('wp_ajax_nopriv_product_search','product_search_callback');
+
+function product_search_callback(){
+
+    $title = sanitize_text_field($_POST['title'] ?? '');
+    $price = sanitize_text_field($_POST['price'] ?? '');
+    $data1 = sanitize_text_field($_POST['data1'] ?? '');
+
+    $args = [
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => 12,
+        'meta_query'     => []
+    ];
+
+    if($title){
+        $args['s'] = $title;
+    }
+
+    if($price){
+        $args['meta_query'][] = [
+            'key'     => '_price',
+            'value'   => $price,
+            'compare' => '='
+        ];
+    }
+
+    if($data1){
+        $args['meta_query'][] = [
+            'key'     => 'data1',
+            'value'   => $data1,
+            'compare' => 'LIKE'
+        ];
+    }
+
+    $query = new WP_Query($args);
+    if($query->have_posts()){
+        echo '<div class="products-grid">';
+
+        while($query->have_posts()){
+            $query->the_post();
+            $book_data = get_post_meta(
+                get_the_ID(),
+                'data1',
+                true
+            );
+
+            $product = wc_get_product(
+                get_the_ID()
+            );
+
+            ?>
+
+            <div class="product-card">
+
+                <a href="<?php the_permalink(); ?>">
+                    <?php
+                    if(
+                        has_post_thumbnail()
+                    ){
+                        the_post_thumbnail(
+                            'woocommerce_thumbnail'
+                        );
+                    }
+                    ?>
+
+                </a>
+
+                <div class="product-content">
+                    <h3><?php the_title(); ?></h3>
+                    <div class="product-meta"> <?php echo esc_html($book_data); ?> </div>
+                    <div class="product-price"><?php echo $product->get_price_html(); ?> </div>
+                    <a href="<?php the_permalink(); ?>" class="product-btn" > View Product  </a>
+                </div>
+
+            </div>
+
+            <?php
+
+        }
+
+        echo '</div>';
+        wp_reset_postdata();
+    }else{
+        echo '<h3>No Products Found</h3>';
+    }
+
+    wp_die();
+
+}
