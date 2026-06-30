@@ -1,0 +1,128 @@
+#amra jodi chai terms and condition select sara checkout complete hobe na(https://prnt.sc/67J65_GhN1pK)
+1. FRIST TOMAKE AKTA FIELD ID NITE HOBE(private const FIELD_NAME_2 = 'mybido_second_agreement';) AMON
+2. NEW CHECKBOX CREATE
+
+  echo '<p class="form-row mybido-checkout-agreement validate-required">';
+		echo '<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">';
+		echo '<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox mybiidoo-checkout-required-checkbox" name="' . esc_attr( $field_name_2 ) . '" id="' . esc_attr( $field_name_2 ) . '" value="1" />';
+		echo '<span>I accept MyBiidoo\'s <a href="' . $terms_url . '" target="_blank" rel="noopener noreferrer">Terms of Services</a>, <a href="' . $privacy_url . '" target="_blank" rel="noopener noreferrer">Privacy Policy</a>, <a href="' . $trust_safety_url . '" target="_blank" rel="noopener noreferrer">Trust and Safety Guidelines</a>, and <a href="' . $cancellation_url . '" target="_blank" rel="noopener noreferrer">Cancellation and Refund Policy</a>.</span>';
+		echo '&nbsp;<abbr class="required" title="required">*</abbr>';
+		echo '</label>';
+		echo '</p>';
+3. if ( empty( $_POST[ self::FIELD_NAME_2 ] ) ) {
+			wc_add_notice(
+				__( 'Please accept the MyBiidoo policies before placing your order.', 'checkout-verify' ),
+				'error'
+			);
+		}
+  ATAR MOTO NEW AKTA  CONDITION DITE HOBE NEW CHECKBOX AR JONNO 
+
+4.if ( ! empty( $_POST[ self::FIELD_NAME_2 ] ) ) {
+			update_post_meta( $order_id, '_mybiidoo_second_agreement', 'yes' );
+		}
+  NEW AKTA UPDATE POST META DITE HOBE AI CHECKBOX AR 
+
+5. && $('#" . esc_js( self::FIELD_NAME_2 ) . "').is(':checked') 
+  NEW CHECKBOX AR JONNO ATA ADD KORTE HOBE
+
+
+<?php
+
+final class MyBido_Checkout_Verify {
+	private const CONFIRM_FIELD_NAME = 'mybiidoo_checkout_confirm_agreement';
+	private const FIELD_NAME_2 = 'mybido_second_agreement';
+
+	public function __construct() {
+		add_action( 'woocommerce_review_order_before_submit', array( $this, 'render_agreement_checkbox' ), 9 );
+		add_action( 'woocommerce_checkout_process', array( $this, 'validate_agreement_checkbox' ) );
+		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_agreement_to_order' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_checkout_script' ) );
+	}
+
+	public function render_agreement_checkbox(): void {
+		if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
+			return;
+		}
+
+		$confirm_field_name = self::CONFIRM_FIELD_NAME;
+		$field_name_2 = self::FIELD_NAME_2;
+		$terms_url          = esc_url( 'https://hotpink-pigeon-900110.hostingersite.com/wp-content/uploads/2026/06/MyBiidoo_Terms_of_Service.pdf' );
+		$privacy_url        = esc_url( 'https://hotpink-pigeon-900110.hostingersite.com/wp-content/uploads/2026/06/MyBiidoo_Privacy_Policy.pdf' );
+		$trust_safety_url   = esc_url( 'https://hotpink-pigeon-900110.hostingersite.com/wp-content/uploads/2026/06/MyBiidoo_Trust_and_Safety_Guidelines.pdf' );
+		$cancellation_url   = esc_url( 'https://hotpink-pigeon-900110.hostingersite.com/wp-content/uploads/2026/06/Global-Cancellation-and-Refund-Policy.pdf' );
+
+		echo '<p class="form-row mybido-checkout-agreement validate-required">';
+		echo '<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">';
+		echo '<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox mybiidoo-checkout-required-checkbox" name="' . esc_attr( $confirm_field_name ) . '" id="' . esc_attr( $confirm_field_name ) . '" value="1" />';
+		echo '<span>I confirm that I have read MyBiidoo\'s <a href="' . $terms_url . '" target="_blank" rel="noopener noreferrer">Terms of Services</a>, <a href="' . $privacy_url . '" target="_blank" rel="noopener noreferrer">Privacy Policy</a>, <a href="' . $trust_safety_url . '" target="_blank" rel="noopener noreferrer">Trust and Safety Guidelines</a>, and <a href="' . $cancellation_url . '" target="_blank" rel="noopener noreferrer">Cancellation and Refund Policy</a>.</span>';
+		echo '&nbsp;<abbr class="required" title="required">*</abbr>';
+		echo '</label>';
+		echo '</p>';
+
+		echo '<p class="form-row mybido-checkout-agreement validate-required">';
+		echo '<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">';
+		echo '<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox mybiidoo-checkout-required-checkbox" name="' . esc_attr( $field_name_2 ) . '" id="' . esc_attr( $field_name_2 ) . '" value="1" />';
+		echo '<span>I accept MyBiidoo\'s <a href="' . $terms_url . '" target="_blank" rel="noopener noreferrer">Terms of Services</a>, <a href="' . $privacy_url . '" target="_blank" rel="noopener noreferrer">Privacy Policy</a>, <a href="' . $trust_safety_url . '" target="_blank" rel="noopener noreferrer">Trust and Safety Guidelines</a>, and <a href="' . $cancellation_url . '" target="_blank" rel="noopener noreferrer">Cancellation and Refund Policy</a>.</span>';
+		echo '&nbsp;<abbr class="required" title="required">*</abbr>';
+		echo '</label>';
+		echo '</p>';
+	}
+
+	public function validate_agreement_checkbox(): void {
+		if ( empty( $_POST[ self::CONFIRM_FIELD_NAME ] ) ) {
+			wc_add_notice(
+				__( 'Please confirm that you have read the MyBiidoo policies before placing your order.', 'checkout-verify' ),
+				'error'
+			);
+		}
+
+		if ( empty( $_POST[ self::FIELD_NAME_2 ] ) ) {
+			wc_add_notice(
+				__( 'Please accept the MyBiidoo policies before placing your order.', 'checkout-verify' ),
+				'error'
+			);
+		}
+	}
+
+	public function save_agreement_to_order( int $order_id ): void {
+		if ( ! empty( $_POST[ self::CONFIRM_FIELD_NAME ] ) ) {
+			update_post_meta( $order_id, '_mybiidoo_checkout_confirm_agreement', 'yes' );
+		}
+
+		if ( ! empty( $_POST[ self::FIELD_NAME_2 ] ) ) {
+			update_post_meta( $order_id, '_mybiidoo_second_agreement', 'yes' );
+		}
+	}
+
+	public function enqueue_checkout_script(): void {
+		if ( ! function_exists( 'is_checkout' ) || ! is_checkout() || is_order_received_page() ) {
+			return;
+		}
+
+		wp_register_script( 'mybido-checkout-verify', '', array( 'jquery' ), '1.0.0', true );
+		wp_enqueue_script( 'mybido-checkout-verify' );
+
+		wp_add_inline_script(
+			'mybido-checkout-verify',
+			"(function($) {
+				function updatePlaceOrderButton() {
+					var checked = $('#" . esc_js( self::CONFIRM_FIELD_NAME ) . "').is(':checked') && $('#" . esc_js( self::FIELD_NAME_2 ) . "').is(':checked') ;
+					$('#place_order').prop('disabled', !checked).toggleClass('disabled', !checked);
+				}
+
+				$(document.body).on('change', '.mybiidoo-checkout-required-checkbox', updatePlaceOrderButton);
+				$(document.body).on('updated_checkout', updatePlaceOrderButton);
+				$(updatePlaceOrderButton);
+			})(jQuery);"
+		);
+	}
+}
+
+add_action(
+	'plugins_loaded',
+	static function (): void {
+		if ( class_exists( 'WooCommerce' ) ) {
+			new MyBido_Checkout_Verify();
+		}
+	}
+);
