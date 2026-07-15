@@ -1,0 +1,13 @@
+#amara jodi comming soon mode live korte na pari tahole code diye force kore ata comming soon mode ke live korte parbo niser code function.php te use korte hobe
+
+/**
+ * Your code goes below.
+ */
+
+// Force WooCommerce Site to be Live (Bypassing database and option caches)
+add_filter('pre_option_woocommerce_coming_soon', 'taj_mohol_force_option_no');
+add_filter('pre_option_woocommerce_store_pages_only', 'taj_mohol_force_option_no');
+function taj_mohol_force_option_no($value) {
+    return 'no';
+}
+add_filter('woocommerce_coming_soon_exclude', '__return_true');
