@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Checkout field
+ * Plugin Name: Checkout Field CPT
  * Plugin URI: https://example.com
- * Description: A simple WordPress plugin for age verification.
+ * Description: A simple WordPress plugin to register Book Custom Post Type.
  * Version: 1.0.0
  * Author: Sablu Hasan
  * Author URI: https://sablu-hasan.vercel.app/
