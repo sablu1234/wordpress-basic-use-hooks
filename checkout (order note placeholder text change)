@@ -1,0 +1,10 @@
+#amra jodi default order note ar placeholder text change korte chai niser code use korbo
+
+// Hook in
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+
+// Our hooked in function - $fields is passed via the filter!
+function custom_override_checkout_fields( $fields ) {
+    $fields['order']['order_comments']['placeholder'] = 'My new placeholder';
+    return $fields;
+}
