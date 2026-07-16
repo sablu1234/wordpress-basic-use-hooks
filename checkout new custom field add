@@ -1,0 +1,35 @@
+#amara jodi kono custom meta add korte chai tobe new meta add korte just
+$fields['billing']['my_custom_field_2'] = array(
+		'type'        => 'text',
+		'label'       => __( 'My Custom Field 2', 'textdomain' ),
+		'placeholder' => __( 'Enter something', 'textdomain' ),
+		'required'    => true,
+		'class'       => array( 'form-row-wide' ),
+		'priority'    => 125,
+	);
+ata copy korlei hobe(field ar size change korte (form-row-wide/form-row-frist/form-row-last) jekono akta use kora jabe podi field ar position change korte chai tobe priority change korte hobe)
+
+=======================================================================================================================================
+add_filter( 'woocommerce_checkout_fields', 'add_custom_field_after_email' );
+function add_custom_field_after_email( $fields ) {
+
+	$fields['billing']['my_custom_field'] = array(
+		'type'        => 'text',
+		'label'       => __( 'My Custom Field 1', 'textdomain' ),
+		'placeholder' => __( 'Enter something', 'textdomain' ),
+		'required'    => true,
+		'class'       => array( 'form-row-wide' ),
+		'priority'    => 115,
+	);
+
+	$fields['billing']['my_custom_field_2'] = array(
+		'type'        => 'text',
+		'label'       => __( 'My Custom Field 2', 'textdomain' ),
+		'placeholder' => __( 'Enter something', 'textdomain' ),
+		'required'    => true,
+		'class'       => array( 'form-row-wide' ),
+		'priority'    => 125,
+	);
+
+	return $fields;
+}
