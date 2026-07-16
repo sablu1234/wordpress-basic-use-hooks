@@ -38,5 +38,5 @@ class Checkout_Field_CPT {
     }
 }
 
-// Instantiate the CPT class
-new Checkout_Field_CPT();
+// Instantiate the CPT class (Commented out because it is extended in the main file)
+// new Checkout_Field_CPT();

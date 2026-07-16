@@ -49,3 +49,42 @@ final class Checkout_Field{
 }
 new Checkout_Field();
 
+/**
+ * Child class extending Checkout_Field_CPT
+ */
+class Custom_Books_CPT extends Checkout_Field_CPT {
+    
+    public function __construct() {
+        // Run the parent constructor to hook init action
+        parent::__construct();
+    }
+
+    /**
+     * Override parent register_books_cpt method to customize settings.
+     */
+    public function register_books_cpt() {
+        $labels = [
+            'name'               => __('Extended Books', 'text-domain'),
+            'singular_name'      => __('Extended Book', 'text-domain'),
+            'add_new'            => __('Add Extended Book', 'text-domain'),
+            'add_new_item'       => __('Add New Extended Book', 'text-domain'),
+            'edit_item'          => __('Edit Extended Book', 'text-domain'),
+            'all_items'          => __('All Extended Books', 'text-domain'),
+        ];
+
+        $args = [
+            'labels'             => $labels,
+            'public'             => true,
+            'has_archive'        => true,
+            'show_in_rest'       => true, 
+            'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
+            'menu_icon'          => 'dashicons-book-alt',
+        ];
+
+        register_post_type('book', $args);
+    }
+}
+
+// Instantiate the child class
+new Custom_Books_CPT();
+
