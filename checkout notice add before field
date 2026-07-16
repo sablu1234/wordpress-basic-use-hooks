@@ -1,0 +1,11 @@
+#amra jodi notice dekta te chai checkout a billing side a niser code use korlei hobe all field ar age dekate ai (hook=> woocommerce_after_checkout_billing_form) ar jodi pore hoi(hook=> woocommerce_before_checkout_billing_form)
+ata use korlei hobe
+======================================================================================
+add_action( 'woocommerce_after_checkout_billing_form', 'add_billing_notice' );
+function add_billing_notice() {
+
+	echo '<div class="billing-notice">';
+	echo '<p>Your billing address will be used for order processing.</p>';
+	echo '</div>';
+
+}
