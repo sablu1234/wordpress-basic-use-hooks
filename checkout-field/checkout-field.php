@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Checkout Field CPT
+ * Plugin Name: OOP CLASS USE STYLE
  * Plugin URI: https://example.com
  * Description: A simple WordPress plugin to register Book Custom Post Type.
  * Version: 1.0.0
