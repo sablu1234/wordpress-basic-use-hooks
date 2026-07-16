@@ -82,7 +82,7 @@ class Custom_Books_CPT extends Checkout_Field_CPT {
             'menu_icon'          => 'dashicons-book-alt',
         ];
 
-        register_post_type('book', $args);
+        register_post_type('extended_book', $args);
     }
 }
 
