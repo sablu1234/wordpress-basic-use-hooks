@@ -55,7 +55,8 @@ new Checkout_Field();
 class Custom_Books_CPT extends Checkout_Field_CPT {
     
     public function __construct() {
-        // Run the parent constructor to hook init action
+        // parent::__construct() প্যারেন্ট ক্লাসের (Checkout_Field_CPT) কনস্ট্রাক্টরকে রান করায়।
+        // এর ফলে প্যারেন্ট ক্লাসে থাকা হুক add_action('init', ...) সচল হয় এবং চাইল্ড ক্লাসের ওভাররাইড মেথড রান করে।
         parent::__construct();
     }
 
