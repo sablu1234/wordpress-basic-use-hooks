@@ -7,7 +7,7 @@
  * Author: Sablu Hasan
  * Author URI: https://sablu-hasan.vercel.app/
  * License: GPL2
- * Text Domain: age-verification
+ * Text Domain: text-domain
  */
 
 if (!defined('ABSPATH')) {
@@ -23,7 +23,7 @@ final class Checkout_Field{
 
     public function wpdocs_register_my_custom_menu_page(){
         add_menu_page(
-            __('Custom Menu', 'age-verification'), 'custom Menu', 'manage_options','custompage', [$this,'my_cusotom_menu_page'],'dashicons-admin-generic',6
+            __('Custom Menu', 'text-domain'), 'custom Menu', 'manage_options','custompage', [$this,'my_cusotom_menu_page'],'dashicons-admin-generic',6
         );
 
         add_submenu_page(
@@ -34,14 +34,14 @@ final class Checkout_Field{
     public function my_cusotom_menu_page(){
         ?>
         <div class="wrap">
-			<h1><?php esc_html_e( 'Admin Page Test', 'checkout-field' ); ?></h1>
+			<h1><?php esc_html_e( 'Admin Page Test', 'text-domain' ); ?></h1>
 		</div>
         <?php
     }
     public function wpdocs_orders_function(){
         ?>
         <div class="wrap">
-			<h1><?php esc_html_e( 'Admin Page Test', 'checkout-field' ); ?></h1>
+			<h1><?php esc_html_e( 'Admin Page Test', 'text-domain' ); ?></h1>
 		</div>
         <?php
     }

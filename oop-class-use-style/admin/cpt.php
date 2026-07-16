@@ -17,12 +17,12 @@ class Checkout_Field_CPT {
      */
     public function register_books_cpt() {
         $labels = [
-            'name'               => __('Books', 'checkout-field'),
-            'singular_name'      => __('Book', 'checkout-field'),
-            'add_new'            => __('Add New', 'checkout-field'),
-            'add_new_item'       => __('Add New Book', 'checkout-field'),
-            'edit_item'          => __('Edit Book', 'checkout-field'),
-            'all_items'          => __('All Books', 'checkout-field'),
+            'name'               => __('Books', 'text-domain'),
+            'singular_name'      => __('Book', 'text-domain'),
+            'add_new'            => __('Add New', 'text-domain'),
+            'add_new_item'       => __('Add New Book', 'text-domain'),
+            'edit_item'          => __('Edit Book', 'text-domain'),
+            'all_items'          => __('All Books', 'text-domain'),
         ];
 
         $args = [
