@@ -1,0 +1,15 @@
+#amra jodi kono static text translation korte chai 
+
+add_filter( 'gettext', 'custom_swedish_gettext_translations', 9999, 3 );
+function custom_swedish_gettext_translations( $translated_text, $text, $domain ) {
+    $dictionary = array(
+        'Billing details'               => 'Faktureringsuppgifter',
+       
+    );
+
+    if ( isset( $dictionary[ $text ] ) ) {
+        return $dictionary[ $text ];
+    }
+
+    return $translated_text;
+}
