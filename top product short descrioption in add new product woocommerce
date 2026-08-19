@@ -1,0 +1,16 @@
+/**
+ * Move Product Short Description above Main Product Description in WP Admin Edit Product screen
+ */
+add_action('admin_footer', 'custom_move_product_short_description_to_top');
+function custom_move_product_short_description_to_top() {
+    $screen = get_current_screen();
+    if ($screen && isset($screen->post_type) && $screen->post_type === 'product') {
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $('#postexcerpt').insertBefore('#postdivrich');
+            });
+        </script>
+        <?php
+    }
+}
