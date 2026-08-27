@@ -1,0 +1,77 @@
+#amar default post ar all meta data frontend a dekate ata use korbo 
+
+##Title
+============================================
+<?php echo get_the_title(); ?>
+<?php echo esc_html( get_the_title() ); ?>
+<?php the_title(); ?>
+<?php echo get_post_field( 'post_title', get_the_ID() ); ?>
+===============================================
+
+====================[Content]========================
+<?php echo get_the_content(); ?>
+<?php the_content(); ?>
+<?php echo apply_filters( 'the_content', get_the_content() ); ?>
+<?php echo get_post_field( 'post_content', get_the_ID() ); ?>
+===============================================
+
+  
+===================={Excerpt}========================
+<?php echo get_the_excerpt(); ?>
+<?php the_excerpt(); ?>
+<?php echo wp_trim_words( get_the_content(), 20 ); ?>
+<?php echo wp_trim_words( get_the_excerpt(), 20 ); ?>
+===============================================
+
+===================={Permalink / URL}========================
+<?php echo get_permalink(); ?>
+<?php the_permalink(); ?>
+<?php echo get_permalink( get_the_ID() ); ?>
+<?php echo esc_url( get_permalink() ); ?>
+===============================================
+
+====================[Featured Image]========================
+<?php echo get_the_post_thumbnail(); ?>
+<?php the_post_thumbnail(); ?>
+<?php echo get_the_post_thumbnail_url(); ?>
+<?php echo get_the_post_thumbnail_url( get_the_ID(), 'full' ); ?>
+<?php echo get_the_post_thumbnail( get_the_ID(), 'full' ); ?>
+<?php echo get_the_post_thumbnail( get_the_ID(), 'medium' ); ?>
+<?php echo get_the_post_thumbnail( get_the_ID(), 'large' ); ?>
+<?php echo get_the_post_thumbnail( get_the_ID(), 'thumbnail' ); ?>
+===============================================
+
+
+  =====================[Category]=======================
+<?php echo get_the_category_list( ', ' ); ?>
+<?php the_category( ', ' ); ?>
+<?php echo get_the_category(); ?>
+<?php echo get_the_category_by_ID( get_the_ID() ); ?>
+<?php echo get_the_terms( get_the_ID(), 'category' ); ?>
+===============================================
+
+===================[Tags]=========================
+<?php echo get_the_tag_list( '', ', ' ); ?>
+<?php the_tags(); ?>
+<?php echo get_the_tags(); ?>
+<?php echo get_the_terms( get_the_ID(), 'post_tag' ); ?>
+<?php echo get_the_term_list( get_the_ID(), 'post_tag', '', ', ' ); ?>
+===============================================
+
+
+======================[Custom Meta]======================
+// 1 — Single Meta Value
+<?php echo get_post_meta( get_the_ID(), 'meta_key', true ); ?>
+// 2 — Meta Value without true
+<?php echo get_post_meta( get_the_ID(), 'meta_key' ); ?>
+// 3 — Specific Post ID
+<?php echo get_post_meta( 123, 'meta_key', true ); ?>
+// 4 — All Meta
+<?php print_r( get_post_meta( get_the_ID() ) ); ?>
+// 5 — Check Meta Exists
+<?php echo metadata_exists( 'post', get_the_ID(), 'meta_key' ); ?>
+// 6 — ACF Field
+<?php echo get_field( 'field_name' ); ?>
+// 7 — ACF Field with Post ID
+<?php echo get_field( 'field_name', get_the_ID() ); ?>
+===============================================
