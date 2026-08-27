@@ -1,0 +1,47 @@
+#amra jodi bivinno vabe iamge use korte chai 
+
+============================================
+// পূর্বে ছিল:
+<?php echo $product->get_image('woocommerce_thumbnail'); ?>
+
+// পরিবর্তন করা হয়েছে:
+<?php echo $product->get_image('full'); ?>
+<?php echo $product->get_image( 'medium' ); ?>
+<?php echo $product->get_image( 'large' ); ?>
+<?php echo $product->get_image( 'thumbnail' ); ?>
+===============================================
+
+============================================
+// Title
+<?php echo get_the_title(); ?>
+<?php echo esc_html( get_the_title() ); ?>
+<?php echo $product->get_name(); ?>
+<?php echo esc_html( $product->get_name() ); ?>
+===============================================
+
+
+============================================
+// Description
+<?php echo get_the_content(); ?>
+<?php echo wpautop( get_the_content() ); ?>
+<?php echo $product->get_description(); ?>
+<?php echo wpautop( $product->get_description() ); ?>
+===============================================
+
+
+============================================
+// Short Description
+<?php echo $product->get_short_description(); ?>
+<?php echo wpautop( $product->get_short_description() ); ?>
+<?php echo esc_html( wp_strip_all_tags( $product->get_short_description() ) ); ?>
+<?php echo wp_trim_words( $product->get_short_description(), 20 ); ?>
+===============================================
+
+
+============================================
+// Meta / Custom Field
+<?php echo get_post_meta( get_the_ID(), 'meta_key', true ); ?>
+<?php echo esc_html( get_post_meta( get_the_ID(), 'meta_key', true ) ); ?>
+<?php echo $product->get_meta( 'meta_key' ); ?>
+<?php echo esc_html( $product->get_meta( 'meta_key' ) ); ?>
+===============================================
