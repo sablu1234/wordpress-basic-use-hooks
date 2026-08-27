@@ -1,0 +1,12 @@
+#amra jodi bivinno vabe iamge use korte chai 
+
+============================================
+// পূর্বে ছিল:
+<?php echo $product->get_image('woocommerce_thumbnail'); ?>
+
+// পরিবর্তন করা হয়েছে:
+<?php echo $product->get_image('full'); ?>
+<?php echo $product->get_image( 'medium' ); ?>
+<?php echo $product->get_image( 'large' ); ?>
+<?php echo $product->get_image( 'thumbnail' ); ?>
+===============================================
