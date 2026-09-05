@@ -1,0 +1,38 @@
+#amra jodi order status-e new status add korte chai label a ("Shipping") ar ai khane same name hobe ($statuses['wc-shipping'] = 'Shipping';) wc- ar pore status name ta soto hater hobe
+
+add_action('init', 'custom_register_shipping_status');
+function custom_register_shipping_status()
+{
+    register_post_status('wc-shipping', array(
+        'label'                     => 'Shipping',
+        'public'                    => true,
+        'show_in_admin_status_list' => true,
+        'show_in_admin_all_list'    => true,
+        'label_count'               => _n_noop(
+            'Shipping <span class="count">(%s)</span>',
+            'Shipping <span class="count">(%s)</span>'
+        ),
+    ));
+}
+add_filter('wc_order_statuses', 'custom_add_shipping_status');
+function custom_add_shipping_status($statuses)
+{
+    $statuses['wc-shipping'] = 'Shipping';
+    return $statuses;
+}
+
+==============================={after processing ar pore}==========================
+#amra jodi specific status ar pore dekate chai tobe ata use korbo (wc-processing) akhane "wc-" ar pore status name soto hater dibo jar pore bosabo seta
+ 
+add_filter('wc_order_statuses', 'add_shipping_after_processing');
+function add_shipping_after_processing($statuses)
+{
+    $new_statuses = array();
+    foreach ($statuses as $key => $label) {
+        $new_statuses[$key] = $label;
+        if ('wc-processing' === $key) {
+            $new_statuses['wc-shipping'] = 'Shipping';
+        }
+    }
+    return $new_statuses;
+}
