@@ -1,0 +1,13 @@
+
+// wordpress defautl emoji script disable
+
+function disable_emojis() {
+    remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+    remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+    remove_action( 'wp_print_styles', 'print_emoji_styles' );
+    remove_action( 'admin_print_styles', 'print_emoji_styles' );	
+    remove_filter( 'the_content_feed', 'print_emoji_svg_url' );
+    remove_filter( 'comment_text_rss', 'print_emoji_svg_url' );	
+    remove_filter( 'wp_mail', 'print_emoji_to_email' );
+}
+add_action( 'init', 'disable_emojis' );
